@@ -10,6 +10,7 @@ import AdminPage from './components/AdminPage.jsx';
 import Login from './components/Login.jsx';
 import PreviousRecord from './components/PreviousRecord.jsx';
 import  Consultations  from './components/Doctor/Consultations.jsx';
+import ConsultationsDetails from './components/ConsultationDetails.jsx';
 
 
 
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/consultations",
     element: <Consultations />
+  },
+  {
+    path: "/consultationdetails/:patientID",
+    element: <ConsultationsDetails />
   },
 
 

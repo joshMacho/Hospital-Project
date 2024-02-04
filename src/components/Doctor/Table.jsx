@@ -46,7 +46,7 @@ const Table = (props) => {
     id: 3,
     name: "Meyare Name",
     doctor: "Dr. Apia",
-    consultationroom: "Consultation Room 1",
+    consultationroom: "Consultation Rooxm 1",
     status: "Pending",
     date: "2024/21/04 12:34:00 AM"
     }];
@@ -60,7 +60,7 @@ const Table = (props) => {
             date:"2024-02-12 23:43 AM",
             action:   <a
             className="bg-green-600  text-white rounded-md p-2 bg-blend-color-dodge"
-            href={`consultationdetails/${val.id}/`}
+            href={`consultationdetails/${val.id}`}
           >
            Work On Patient
           </a>
@@ -87,8 +87,7 @@ const Table = (props) => {
           expanded: true, //expand all groups by default
 
           //grouping: ['shipper'], //an array of columns to group by by default (can be multiple)
-          pagination: { pageIndex: 0, pageSize: 20 },
-          sorting: [{ id: "fileNumber", desc: false }], //sort by state by default
+          pagination: { pageIndex: 0, pageSize: 20 }, //sort by state by default
         }}
         muiToolbarAlertBannerChipProps={{ color: "primary" }}
         muiTableContainerProps={{ sx: { maxHeight: 700 } }}

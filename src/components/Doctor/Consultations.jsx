@@ -4,8 +4,6 @@ import Table from "./Table";
 
 const Consultations =()=>{
 
-
-
     return (
 
         <Table />
