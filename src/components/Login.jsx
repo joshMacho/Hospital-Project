@@ -36,6 +36,8 @@ console.log("response from the server")
     <div className="login-main-div">
       <div className="image-div div-props"></div>
       <div className="form-div div-props">
+
+        <a href="/admin">GO TO ADMIN PAGE</a>
         <div className="s-tit">
           <p>M-H-S</p>
         </div>

@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div>
-      <AdminPage />
+      <Login />
       <ToastContainer theme="dark" />
     </div>
   );
