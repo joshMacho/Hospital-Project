@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .pass-form-div {
+    @apply flex
+    flex-col
+    items-center
+    shadow
+    shadow-black
+    rounded-2xl
+    px-5
+    my-2
+    mx-4
+    bg-white
+    relative;
+  }
+}

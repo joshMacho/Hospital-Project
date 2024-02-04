@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Gilroy-Medium";
+  src: url("../assets/fonts/Gilroy-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Bold";
+  src: url("../assets/fonts/Gilroy-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Heavy";
+  src: url("../assets/fonts/Gilroy-Heavy.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Light";
+  src: url("../assets/fonts/Gilroy-Light.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Regular";
+  src: url("../assets/fonts/Gilroy-Regular.ttf");
+}
+
+@layer base {
+  .login-main-div {
+    @apply flex
+    justify-center
+    items-center
+    h-[100vh];
+  }
+  .div-props {
+    @apply h-[380px]
+    w-[390px];
+  }
+  .image-div {
+    @apply hidden
+    bg-loginBackground
+    rounded-xl
+    md:block;
+  }
+  .form-div {
+    @apply flex
+    flex-col
+    max-w-screen-sm
+    bg-slate-200
+    rounded-lg
+    justify-evenly
+    items-center
+    relative;
+  }
+  .login-form {
+    @apply flex
+    flex-col
+    justify-center
+    items-center
+    m-2
+    space-y-10;
+  }
+  .i-f {
+    @apply flex
+    flex-col 
+    justify-center
+    items-center
+    w-full
+    space-y-3;
+  }
+  .login-input-div {
+    @apply flex
+    items-center
+    justify-center
+    rounded-lg
+    border
+    border-slate-400;
+  }
+  .error {
+    @apply border
+    border-red-700;
+  }
+  .login-elements-div {
+    @apply flex
+    p-2
+    space-x-2
+    rounded-lg
+    w-full;
+  }
+  .login-elements-div input {
+    @apply bg-transparent
+    font-ekuzoaMedium
+    text-[18px];
+  }
+  .login-elements-div input:focus {
+    @apply outline-none;
+  }
+  .login-elements-div input::placeholder {
+    @apply font-ekuzoaMedium 
+    text-[15px];
+  }
+  .button-div {
+    @apply w-full
+    flex
+    rounded-lg
+    bg-slate-800
+    justify-center
+    items-center
+    h-auto;
+  }
+  .button-div button {
+    @apply font-ekuzoaBold
+    text-[20px]
+    text-white
+    bg-slate-800
+    w-full
+    rounded-lg
+    hover:shadow-black
+    h-12
+    hover:shadow-md
+    hover:scale-105;
+  }
+  .s-tit {
+    @apply mx-2
+    w-full
+    flex
+    justify-center
+    items-center;
+  }
+  .s-tit p {
+    @apply bg-transparent
+    px-2
+    rounded-lg
+    font-ekuzoaBold
+    text-slate-800
+    text-center
+    text-[20px];
+  }
+  .s-tit p::after {
+    display: block;
+    line-height: 1;
+    content: "Your health, Our Concern";
+    @apply font-ekuzoaMedium text-center pt-0 text-[14px];
+  }
+  .error-div {
+    @apply absolute
+    w-full
+    top-0
+    bg-red-200;
+  }
+  .error-div p {
+    @apply text-center
+    font-ekuzoaMedium
+    text-red-800;
+  }
+}

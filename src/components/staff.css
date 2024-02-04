@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Gilroy-Medium";
+  src: url("../assets/fonts/Gilroy-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Bold";
+  src: url("../assets/fonts/Gilroy-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Heavy";
+  src: url("../assets/fonts/Gilroy-Heavy.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Light";
+  src: url("../assets/fonts/Gilroy-Light.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Regular";
+  src: url("../assets/fonts/Gilroy-Regular.ttf");
+}
+
+@layer base {
+  .staff-main-div {
+    @apply w-full
+        flex;
+  }
+  .staff-d1 {
+    @apply m-4
+    flex
+    flex-col
+    justify-center
+    items-center
+    bg-white
+    w-screen
+    rounded-lg
+    shadow-md
+    shadow-slate-600;
+  }
+  .s-t {
+    @apply w-full
+    flex
+    justify-start
+    items-center;
+  }
+  .s-t p {
+    @apply p-1
+    text-[25px]
+    font-ekuzoaLight;
+  }
+  .s-table-div {
+    @apply flex
+    flex-col
+    items-center
+    justify-center
+    w-full;
+  }
+  .search-div {
+    @apply flex
+    justify-between
+    items-center
+    w-full;
+  }
+  .search-i-div {
+    @apply p-1
+    flex
+    w-fit
+    rounded-lg
+    border-2
+    mx-2;
+  }
+  .search-i-div input {
+    @apply font-ekuzoaBold
+    text-[15px]
+    bg-transparent
+    mx-2;
+  }
+  .search-i-div input:focus {
+    @apply outline-none;
+  }
+  .search-i-div input::placeholder {
+    @apply font-ekuzoaLight
+    text-[13px];
+  }
+  .t-table-div {
+    @apply flex
+    flex-col
+    w-full
+    min-h-screen
+    max-h-screen
+    overflow-auto;
+  }
+  .t-table-div table {
+    @apply mx-2
+    my-3
+    shadow-sm
+    shadow-slate-600;
+  }
+  .t-table-div table tbody tr {
+    @apply text-center
+    font-ekuzoaLight;
+  }
+  .t-table-div table tbody tr td button {
+    @apply p-1
+    mx-2;
+  }
+  .but-d {
+    @apply flex
+    justify-center
+    items-center
+    mx-2;
+  }
+  .but-d button {
+    @apply bg-slate-600
+    rounded-sm
+    flex
+    items-center
+    justify-center
+    hover:shadow-md
+    hover:shadow-slate-600;
+  }
+  .but-d img {
+    @apply p-1;
+  }
+  .but-d button p {
+    @apply p-1
+    mr-1
+    font-ekuzoaBold
+    text-white
+    hidden
+    md:block;
+  }
+  .actions button {
+    @apply shadow-md
+    shadow-slate-700;
+  }
+  .actions button:hover {
+    @apply bg-slate-500;
+  }
+}

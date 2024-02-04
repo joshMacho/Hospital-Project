@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Gilroy-Medium";
+  src: url("../assets/fonts/Gilroy-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Bold";
+  src: url("../assets/fonts/Gilroy-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Heavy";
+  src: url("../assets/fonts/Gilroy-Heavy.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Light";
+  src: url("../assets/fonts/Gilroy-Light.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Regular";
+  src: url("../assets/fonts/Gilroy-Regular.ttf");
+}
+
+@layer base {
+  .popup-overlay {
+    @apply fixed top-0 left-0 w-full 
+        h-full
+        bg-opacity-5 
+        backdrop-filter 
+        backdrop-blur-sm 
+        flex items-center 
+        justify-center z-50;
+  }
+
+  .popup-content {
+    @apply bg-white 
+        p-8 rounded-md 
+        shadow-md m
+        ax-w-md 
+        w-full 
+        text-center;
+  }
+  .form-div {
+    @apply flex
+    flex-col
+    items-center
+    h-[540px]
+    shadow
+    shadow-black
+    rounded-2xl
+    px-5
+    my-2
+    mx-4
+    bg-white
+    relative
+    md:h-[3/4vh]
+    md:w-1/2;
+  }
+  .head-div {
+    @apply w-full
+    flex
+    items-center
+    justify-center;
+  }
+  .head-div p {
+    @apply font-ekuzoaBold
+    text-slate-800;
+  }
+  .all-inputs {
+    @apply flex
+    flex-col
+    justify-start
+    items-center
+    rounded-lg
+    mb-2
+    overflow-x-hidden
+    w-full;
+  }
+  .inner-input-div {
+    @apply flex flex-col
+    justify-center
+    w-full
+    space-y-1;
+  }
+  .inner-input-div label {
+    @apply font-ekuzoaLight
+    text-[14px]
+    mx-2
+    text-slate-800;
+  }
+  .inner-input-div input {
+    @apply rounded-lg
+    text-[14px]
+    font-ekuzoaMedium
+    px-2
+    py-1
+    bg-slate-200
+    mx-2;
+  }
+  .inner-input-div input:focus {
+    @apply outline-none
+    border-b-2
+    border-slate-700;
+  }
+
+  .inner-input-div input::placeholder {
+    @apply font-ekuzoaMedium
+    text-[14px];
+  }
+  .submit-div {
+    @apply flex
+    w-full
+    justify-center
+    items-center
+    mb-2;
+  }
+  .submit-div button {
+    @apply flex
+    justify-center
+    items-center
+    w-full
+    h-[40px]
+    bg-slate-600
+    space-x-3
+    text-white
+    font-ekuzoaBold
+    hover:shadow-sm
+   hover:shadow-slate-700
+   disabled:bg-slate-400
+   disabled:cursor-not-allowed;
+  }
+  .type {
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 2px;
+    @apply font-ekuzoaMedium text-[14px] mb-1  mx-2
+    text-slate-600;
+  }
+  .type-list {
+    @apply flex flex-row flex-wrap;
+  }
+  .type.active {
+    color: black;
+    @apply -translate-y-1 transition delay-100;
+  }
+  .dot {
+    width: 5px;
+    height: 5px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    bottom: -1;
+  }
+}
