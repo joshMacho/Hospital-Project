@@ -9,6 +9,7 @@ import './index.css'
 import AdminPage from './components/AdminPage.jsx';
 import Login from './components/Login.jsx';
 import PreviousRecord from './components/PreviousRecord.jsx';
+import  Consultations  from './components/Doctor/Consultations.jsx';
 
 
 
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/previous",
     element: <PreviousRecord />
+  },
+  {
+    path: "/consultations",
+    element: <Consultations />
   },
 
 
