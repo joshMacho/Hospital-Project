@@ -1,5 +1,6 @@
 import "./login.css";
 import { useState } from "react";
+import axios from "axios";
 import userIcon from "../assets/icons/user.svg";
 
 function Login() {
@@ -10,8 +11,20 @@ function Login() {
   const [error, setError] = useState(false);
 
   const handleInputChange = (e) => {
+
+
     const { name, value } = e.target;
     setLoginData((logins) => ({ ...logins, [name]: value }));
+  //send the data to backend using axios
+//eg.
+
+axios.post("http://localhost:3001/api/register",{name,value}).then((res)=>
+console.log("response from the server")
+
+).catch((e)=>console.log("error occured"))
+
+
+  
   };
 
   const handleSubmit = (e) => {
