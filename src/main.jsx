@@ -8,6 +8,7 @@ import App from './App.jsx'
 import './index.css'
 import AdminPage from './components/AdminPage.jsx';
 import Login from './components/Login.jsx';
+import PreviousRecord from './components/PreviousRecord.jsx';
 
 
 
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminPage />
+  },
+  {
+    path: "/previous",
+    element: <PreviousRecord />
   },
 
 
