@@ -27,9 +27,9 @@ function Patients() {
       >
         <AddNewPatient isOpen={isFormOpen} isClosed={closeFormPopup} />
       </ReactModal>
-      <div className="mx-2">
+      <div className="mx-2 my-3">
         <div>
-          <p>Patients </p>
+          <p className="font-ekuzoaLight text-[25px]">Patients </p>
         </div>
       </div>
       <div className="flex justify-between item-center mx-2">
