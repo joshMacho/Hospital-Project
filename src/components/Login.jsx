@@ -11,20 +11,15 @@ function Login() {
   const [error, setError] = useState(false);
 
   const handleInputChange = (e) => {
-
-
     const { name, value } = e.target;
     setLoginData((logins) => ({ ...logins, [name]: value }));
-  //send the data to backend using axios
-//eg.
+    //send the data to backend using axios
+    //eg.
 
-axios.post("http://localhost:3001/api/register",{name,value}).then((res)=>
-console.log("response from the server")
-
-).catch((e)=>console.log("error occured"))
-
-
-  
+    axios
+      .post("http://localhost:3001/api/register", { name, value })
+      .then((res) => console.log("response from the server"))
+      .catch((e) => console.log("error occured"));
   };
 
   const handleSubmit = (e) => {
@@ -36,8 +31,7 @@ console.log("response from the server")
     <div className="login-main-div">
       <div className="image-div div-props"></div>
       <div className="form-div div-props">
-
-        <a href="/admin">GO TO ADMIN PAGE</a>
+        <a href="/nurse">GO TO ADMIN PAGE</a>
         <div className="s-tit">
           <p>M-H-S</p>
         </div>
