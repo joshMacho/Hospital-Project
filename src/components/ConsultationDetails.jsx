@@ -7,7 +7,6 @@ import { useForm, Controller, useFieldArray, useWatch } from "react-hook-form";
 
 ReactModal.setAppElement("#root");
 
-
 const ConsultationsDetails = () => {
   const {
     register,
@@ -28,8 +27,7 @@ const ConsultationsDetails = () => {
   const { patientID } = useParams();
 
   const check = () => {
-
-   axios
+    axios
       .post("http://138.68.161.4:8222/emr/cis/api/v1/generate_secure_token", {
         payload: "b9-828990-24=Kwame Kwaku=2024-02-04 09:37:10",
 
@@ -39,13 +37,10 @@ const ConsultationsDetails = () => {
       })
       .then((res) => {
         if (res.data.errorCode === "0") {
-        
           setToken(res.data.errorMessage);
         }
       })
       .catch((e) => console.log(e));
-      
-      
   };
 
   //run this in useEffect
@@ -53,14 +48,10 @@ const ConsultationsDetails = () => {
     axios
       .post(`http://localhost:3001/patientConsultation/${patientID}`, {
         //pull patient's details and pass them to the inputs
-
         //check inside the useEffect on how I set the detault values for the inputs
-
-
       })
       .then((res) => {
         if (res.data.errorCode === "0") {
-         
           setToken(res.data.errorMessage);
         }
       })
@@ -69,45 +60,43 @@ const ConsultationsDetails = () => {
 
   useEffect(() => {
     //this is how to set default values for react-hook-form
-    reset({name:"Kwaku Macho",status:"Complete",dateofvisit:"2024-02-04",weight:"45Kg",temperature:"37C",pulse:"434",heartrate:"434",notes:"All is well",diagnose:"Malaria",medication:"Para",lab:"Do Malaria test"})
+    reset({
+      name: "Kwaku Macho",
+      status: "Complete",
+      dateofvisit: "2024-02-04",
+      weight: "45Kg",
+      temperature: "37C",
+      pulse: "434",
+      heartrate: "434",
+      notes: "All is well",
+      diagnose: "Malaria",
+      medication: "Para",
+      lab: "Do Malaria test",
+    });
     //   getConsultationDetails();
   }, []);
 
   return (
     <>
-
-
-   
-    
-
-  
-
- 
- 
-
       <form className="bg-white mx-auto p-4">
         <header className="bg-orange-600 bg-opacity-20  sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6">
           <div className="flex items-center justify-between">
-            <h2 className="font-semibold text-black text-center">
-              Patient 
-            </h2>
+            <h2 className="font-semibold text-black text-center">Patient</h2>
           </div>
         </header>
 
-
         <div className="flex items-center justify-center flex-grow">
           {token != "h" && (
-        <div className="flex">
-          {" "}
-          <iframe
-            src={`http://138.68.161.4:8222/${token}`}
-            height={500}
-            width={1000}
-          />{" "}
+            <div className="flex">
+              {" "}
+              <iframe
+                src={`http://138.68.161.4:8222/${token}`}
+                height={500}
+                width={1000}
+              />{" "}
+            </div>
+          )}
         </div>
-      )}
-
-</div>
 
         <div className="flex flex-col">
           <div className="flex  flex-grow">
@@ -137,7 +126,6 @@ const ConsultationsDetails = () => {
               )}
             </div>
           </div>
-
 
           <div className="flex  flex-grow">
             <div className="flex-1 flex-col  py-2 ">
@@ -194,13 +182,12 @@ const ConsultationsDetails = () => {
               )}
             </div>
           </div>
-          
 
           <div className="flex  flex-grow">
             <div className="flex-1 flex-col  py-2 ">
               <label>Notes</label>
               <textarea
-                className="focus:outline-none rounded-sm focus:border-blue-500 focus:ring-2 focus:ring-orange-500 text-black-500 mt-2 p-2  w-full bg-gray-100 bg-gray-100"
+                className="focus:outline-none rounded-sm focus:border-blue-500 focus:ring-2 focus:ring-orange-500 text-black-500 mt-2 p-2  w-full bg-gray-100"
                 {...register("notes", {
                   required: "This is Required",
                 })}
@@ -208,9 +195,7 @@ const ConsultationsDetails = () => {
                 type="text"
               />
               {errors.terminalrenotesmarks && (
-                <small style={{ color: "red" }}>
-                  {errors.notes.message}
-                </small>
+                <small style={{ color: "red" }}>{errors.notes.message}</small>
               )}
             </div>
           </div>
@@ -219,7 +204,7 @@ const ConsultationsDetails = () => {
             <div className="flex-1 flex-col  py-2 ">
               <label>Diagnose</label>
               <textarea
-                className="focus:outline-none rounded-sm focus:border-blue-500 focus:ring-2 focus:ring-orange-500 text-black-500 mt-2 p-2  w-full bg-gray-100 bg-gray-100"
+                className="focus:outline-none rounded-sm focus:border-blue-500 focus:ring-2 focus:ring-orange-500 text-black-500 mt-2 p-2  w-full bg-gray-100"
                 {...register("diagnose", {
                   required: "This is Required",
                 })}
@@ -238,7 +223,7 @@ const ConsultationsDetails = () => {
             <div className="flex-1 flex-col  py-2 ">
               <label>Medication</label>
               <textarea
-                className="focus:outline-none rounded-sm focus:border-blue-500 focus:ring-2 focus:ring-orange-500 text-black-500 mt-2 p-2  w-full bg-gray-100 bg-gray-100"
+                className="focus:outline-none rounded-sm focus:border-blue-500 focus:ring-2 focus:ring-orange-500 text-black-500 mt-2 p-2  w-full bg-gray-100"
                 {...register("medication", {
                   required: "This is Required",
                 })}
@@ -262,9 +247,7 @@ const ConsultationsDetails = () => {
                 type="text"
               />
               {errors.status && (
-                <small style={{ color: "red" }}>
-                  {errors.status.message}
-                </small>
+                <small style={{ color: "red" }}>{errors.status.message}</small>
               )}
             </div>
 
@@ -277,13 +260,10 @@ const ConsultationsDetails = () => {
                 type="text"
               />
               {errors.lab && (
-                <small style={{ color: "red" }}>
-                  {errors.lab.message}
-                </small>
+                <small style={{ color: "red" }}>{errors.lab.message}</small>
               )}
             </div>
           </div>
-
 
           <hr />
           <div className="flex justify-items-center flex-grow mt-2 bg-green-400 bg-opacity-20">
@@ -303,8 +283,7 @@ const ConsultationsDetails = () => {
                 Save as Draft
               </button>
             </div>
-       
-         
+
             <div className="flex-1  flex-col  py-2">
               <button
                 type="button"
