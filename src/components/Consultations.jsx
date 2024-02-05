@@ -1,9 +1,29 @@
 import { useState } from "react";
 import searchIcon from "../assets/icons/search.svg";
+import AddConsultation from "./AddConsultation";
+import ReactModal from "react-modal";
 
 function Consultations() {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const openFormPopup = () => {
+    setIsFormOpen(true);
+  };
+
+  const closeFormPopup = () => {
+    setIsFormOpen(false);
+  };
+
   return (
     <div className="w-full flex flex-col">
+      <ReactModal
+        isOpen={isFormOpen}
+        onRequestClose={closeFormPopup}
+        className="Modal"
+        overlayClassName="Overlay"
+        contentLabel="Form Popup"
+      >
+        <AddConsultation isOpen={isFormOpen} isClosed={closeFormPopup} />
+      </ReactModal>
       <div className="mx-2 my-3">
         <div>
           <p className="font-ekuzoaLight text-[25px]">Consultations </p>
@@ -11,7 +31,10 @@ function Consultations() {
       </div>
       <div className="flex justify-between item-center mx-2">
         <div>
-          <button className="flex justify-center items-center border border-black rounded-md">
+          <button
+            onClick={openFormPopup}
+            className="flex justify-center items-center border border-black rounded-md"
+          >
             <p className="p-1">Add Consultation</p>
           </button>
         </div>
