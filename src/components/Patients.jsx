@@ -1,10 +1,32 @@
 import { useState } from "react";
 import searchIcon from "../assets/icons/search.svg";
 import "./patient.css";
+import ReactModal from "react-modal";
+import AddNewPatient from "./AddNewPatient";
+
+ReactModal.setAppElement("#root");
 
 function Patients() {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const openFormPopup = () => {
+    setIsFormOpen(true);
+  };
+
+  const closeFormPopup = () => {
+    setIsFormOpen(false);
+  };
   return (
     <div className="w-full flex flex-col">
+      <ReactModal
+        isOpen={isFormOpen}
+        onRequestClose={closeFormPopup}
+        className="Modal"
+        overlayClassName="Overlay"
+        contentLabel="Form Popup"
+      >
+        <AddNewPatient isOpen={isFormOpen} isClosed={closeFormPopup} />
+      </ReactModal>
       <div className="mx-2">
         <div>
           <p>Patients </p>
@@ -12,7 +34,10 @@ function Patients() {
       </div>
       <div className="flex justify-between item-center mx-2">
         <div>
-          <button className="flex justify-center items-center border border-black ">
+          <button
+            onClick={openFormPopup}
+            className="flex justify-center items-center border border-black "
+          >
             <p className="p-1">Add Patient</p>
           </button>
         </div>
@@ -28,14 +53,16 @@ function Patients() {
       <div className="n-table-div">
         <table>
           <thead>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Contact</th>
-            <th>Sex</th>
-            <th>DOB</th>
-            <th>Address</th>
-            <th>Marital Status</th>
-            <th>Next of Kin</th>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Contact</th>
+              <th>Sex</th>
+              <th>DOB</th>
+              <th>Address</th>
+              <th>Marital Status</th>
+              <th>Next of Kin</th>
+            </tr>
           </thead>
         </table>
       </div>

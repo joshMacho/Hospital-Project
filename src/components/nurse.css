@@ -55,4 +55,10 @@
   .t-b-div img {
     @apply w-5;
   }
+  .selected {
+    @apply bg-slate-400
+    transition
+    delay-150
+    ease-in-out;
+  }
 }

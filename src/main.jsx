@@ -8,6 +8,7 @@ import Login from "./components/Login.jsx";
 import PreviousRecord from "./components/PreviousRecord.jsx";
 import Consultations from "./components/Doctor/Consultations.jsx";
 import ConsultationsDetails from "./components/ConsultationDetails.jsx";
+import Nurse from "./components/Nurse.jsx";
 
 //you can add your pages here for navigation
 const router = createBrowserRouter([
