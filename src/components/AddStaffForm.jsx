@@ -3,6 +3,7 @@ import "./addStaff.css";
 import Loading from "./Loading.jsx";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const staffType = [
   "Admin",
@@ -13,8 +14,20 @@ const staffType = [
   "Surgeon",
 ];
 
-function AddStaffForm({ isOpen, isClosed }) {
+function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
   const [types, setTypes] = useState([]);
+  const [editState, setEditState] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [activeType, setActiveType] = useState(0);
+  const [rePassword, setRepassword] = useState("");
+  const [userDetails, setUserDetails] = useState({
+    name: "",
+    type: staffType[activeType],
+    username: "",
+    email: "",
+    contact: "",
+    password: "",
+  });
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,24 +41,13 @@ function AddStaffForm({ isOpen, isClosed }) {
     fetchData();
   }, []);
 
-  const [loading, setLoading] = useState(false);
-  const [activeType, setActiveType] = useState(0);
-  const [userDetails, setUserDetails] = useState({
-    name: "",
-    type: staffType[activeType],
-    username: "",
-    email: "",
-    contact: "",
-    password: "",
-    rePassword: "",
-  });
-
-  const handleSuccessNotification = (e) => {
-    e.preventDefault();
-    toast.success("Operation successful!", {
-      position: "top-right", // You can customize the position
-    });
-  };
+  useEffect(() => {
+    if (editMode) {
+      setUserDetails(data);
+      setActiveType(staffType.indexOf(data.type));
+      setEditState(editMode);
+    }
+  }, [editState]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -60,30 +62,81 @@ function AddStaffForm({ isOpen, isClosed }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userDetails);
+
+    if (userDetails.password === rePassword) {
+      setLoading(true);
+      await axios
+        .post("http://localhost:8090/api/insertEmp", userDetails)
+        .then((response) => {
+          toast.success(response.data.message, {
+            position: "top-right",
+          });
+
+          setLoading(false);
+          isClosed();
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.log(error);
+        });
+    } else {
+      toast.error("Password missmatch", {
+        position: "top-right",
+      });
+    }
+  };
+
+  const updateStaffDetails = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    await axios
+      .put(
+        `http://localhost:8090/api/updateEmployee/${userDetails.id}`,
+        userDetails
+      )
+      .then((response) => {
+        toast.success(response.data.message, {
+          position: "top-right",
+        });
+        setLoading(false);
+        isClosed();
+        doneEditing(false);
+      })
+      .catch((error) => {
+        toast.error(response.data.message, {
+          position: "bottom-center",
+        });
+        setLoading(false);
+      });
+  };
+
+  const handleClose = () => {
+    doneEditing(false);
+    isClosed();
   };
 
   return (
     <>
       {isOpen && (
         <div className="popup-overlay">
-          <form className="form-div">
-            <button
-              className="p-1 border border-black rounded-md absolute top-2 right-2 bg-slate-500 text-white"
-              onClick={isClosed}
+          <form
+            className="form-div"
+            onSubmit={editState ? updateStaffDetails : handleSubmit}
+          >
+            <div
+              className="cursor-pointer p-1 border border-black rounded-md absolute top-2 right-2 bg-slate-500 text-white"
+              onClick={handleClose}
             >
               Close
-            </button>
+            </div>
             <div className="head-div">
-              <p>Add New Staff</p>
+              <p>{editMode ? "Update Staff" : "Add New Staff"}</p>
             </div>
             <div className="all-inputs">
               <div className="inner-input-div">
-                <label htmlFor="name" onClick={handleSuccessNotification}>
-                  Name
-                </label>
+                <label htmlFor="name">Name</label>
                 <input
                   type="text"
                   id="name"
@@ -146,7 +199,7 @@ function AddStaffForm({ isOpen, isClosed }) {
                   required
                 />
               </div>
-              <div className="inner-input-div">
+              <div className={`inner-input-div ${editState ? "hidden" : ""}`}>
                 <label htmlFor="password">Password</label>
                 <input
                   type="password"
@@ -155,25 +208,25 @@ function AddStaffForm({ isOpen, isClosed }) {
                   value={userDetails.password}
                   onChange={handleInputChange}
                   placeholder="Password"
-                  required
+                  {...(!editMode && { required: true })}
                 />
               </div>
-              <div className="inner-input-div">
+              <div className={`inner-input-div ${editState ? "hidden" : ""}`}>
                 <label htmlFor="rePassword">Re-password</label>
                 <input
                   type="password"
                   id="rePassword"
                   name="rePassword"
-                  value={userDetails.rePassword}
-                  onChange={handleInputChange}
+                  value={rePassword}
+                  onChange={(e) => setRepassword(e.target.value)}
                   placeholder="Confirm Password"
-                  required
+                  {...(!editMode && { required: true })}
                 />
               </div>
             </div>
             <div className="submit-div">
-              <button disabled={loading} onClick={handleSuccessNotification}>
-                <p>Save</p>
+              <button disabled={loading}>
+                <p>{editState ? "Update" : "Save"}</p>
                 {loading ? <Loading /> : ""}
               </button>
             </div>

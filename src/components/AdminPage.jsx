@@ -4,6 +4,8 @@ import Dashboard from "./Dashboard";
 import Staff from "./Staff";
 import dashboardIcon from "../assets/icons/layers.svg";
 import staffsIcon from "../assets/icons/staffs.svg";
+import homeIcon from "../assets/icons/home.svg";
+import { useNavigate } from "react-router";
 
 function AdminPage() {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -15,11 +17,17 @@ function AdminPage() {
     e.preventDefault();
     setSelectedTab(2);
   };
+
+  const navigateTo = useNavigate();
+
+  const goToHomepage = () => {
+    navigateTo("/home");
+  };
   return (
     <div className="admin-main-div">
       <div className="top-bar-div">
         <div className="c-div">
-          <p></p>
+          <img src={homeIcon} onClick={goToHomepage} />
         </div>
         <div className="nav-buttons-div">
           <button

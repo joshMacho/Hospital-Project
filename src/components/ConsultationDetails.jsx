@@ -25,6 +25,7 @@ const ConsultationsDetails = () => {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const { patientID } = useParams();
+  const [patientConsult, setPatientConsult] = useState({});
 
   const check = () => {
     axios
@@ -43,37 +44,32 @@ const ConsultationsDetails = () => {
       .catch((e) => console.log(e));
   };
 
-  //run this in useEffect
-  const getConsultationDetails = () => {
-    axios
-      .post(`http://localhost:3001/patientConsultation/${patientID}`, {
-        //pull patient's details and pass them to the inputs
-        //check inside the useEffect on how I set the detault values for the inputs
-      })
-      .then((res) => {
-        if (res.data.errorCode === "0") {
-          setToken(res.data.errorMessage);
-        }
-      })
-      .catch((e) => console.log(e));
-  };
-
   useEffect(() => {
-    //this is how to set default values for react-hook-form
-    reset({
-      name: "Kwaku Macho",
-      status: "Complete",
-      dateofvisit: "2024-02-04",
-      weight: "45Kg",
-      temperature: "37C",
-      pulse: "434",
-      heartrate: "434",
-      notes: "All is well",
-      diagnose: "Malaria",
-      medication: "Para",
-      lab: "Do Malaria test",
-    });
-    //   getConsultationDetails();
+    const getConsultationDetails = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8090/api/getconsult/${patientID}`
+        );
+        setPatientConsult(response.data);
+        reset({
+          name: response.data.patient_name,
+          status: response.data.status,
+          dateofvisit: new Date(response.data.date).toISOString().split("T")[0],
+          weight: response.data.weight,
+          temperature: response.data.temperature,
+          pulse: response.data.pulse,
+          heartrate: response.data.heart_rate,
+          notes: "All is well",
+          diagnose: "Malaria",
+          medication: "Para",
+          lab: "Do Malaria test",
+        });
+      } catch (error) {
+        console.error("Error fetching consultation details:", error);
+      }
+    };
+
+    getConsultationDetails();
   }, []);
 
   return (

@@ -28,53 +28,55 @@
 }
 
 @layer base {
-  .n-main-div {
+  .m-d {
     @apply w-full
-        flex
-        flex-col;
+        h-full
+        flex flex-col
+        bg-slate-200;
   }
-  .topper-div {
+  .t-d {
     @apply flex
-    flex-col
-    w-full;
-  }
-  .n-top-div {
-    @apply w-full
-    flex
-    flex-col
-    justify-between
-    items-end
-    bg-slate-600
-    h-20;
-  }
-  .t-b-div {
-    @apply flex
-    w-full;
-  }
-  .home-div {
-    @apply flex
-    justify-start
-    items-center
-     w-full;
-  }
-  .home-div img {
-    @apply w-[25px] h-[25px];
-  }
-  .t-b-div button {
-    @apply p-1
-    
-    w-[70px]
-    flex
     justify-center
-    items-center;
+    items-center
+    h-24;
   }
-  .t-b-div img {
-    @apply w-5;
+  .t-d p {
+    @apply font-ekuzoaBold
+    text-[40px]
+    text-slate-700;
   }
-  .selected {
-    @apply bg-slate-400
-    transition
-    delay-150
-    ease-in-out;
+  .d-div {
+    @apply w-full
+    flex
+    flex-col
+    justify-evenly
+    mt-5
+    space-y-10;
+  }
+  .btn-div {
+    @apply flex
+    rounded-r-full
+    flex-col
+    items-center
+    justify-center
+    w-full
+    h-32
+    shadow-md;
+  }
+  .btn-div p {
+    @apply font-ekuzoaBold
+    text-[50px]
+    text-white;
+  }
+  .btn-div button {
+    @apply border 
+    w-full
+    mx-4
+    rounded-r-full
+    h-full
+    hover:shadow-md;
+  }
+  .btn-div img {
+    @apply h-[50px] w-[50px];
   }
 }

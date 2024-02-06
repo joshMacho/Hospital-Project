@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { MaterialReactTable } from "material-react-table";
+import axios from "axios";
 
 const Table = (props) => {
   //should be memoized or stable
@@ -35,45 +36,64 @@ const Table = (props) => {
         header: "Action",
         size: 200,
       },
-      
     ],
     []
   );
 
+  useEffect(() => {
+    fetchData();
+  }, []);
 
+  // const dataFromData = [
+  //   {
+  //     id: 3,
+  //     name: "Meyare Name",
+  //     doctor: "Dr. Apia",
+  //     consultationroom: "Consultation Rooxm 1",
+  //     status: "Pending",
+  //     date: "2024/21/04 12:34:00 AM",
+  //   },
+  // ];
 
-  const dataFromData =[{
-    id: 3,
-    name: "Meyare Name",
-    doctor: "Dr. Apia",
-    consultationroom: "Consultation Rooxm 1",
-    status: "Pending",
-    date: "2024/21/04 12:34:00 AM"
-    }];
+  const [dataFromData, setDataFromData] = useState([]);
+  const [dataToUseForTableM, setDataToUseForTableM] = useState([]);
+  const fetchData = async () => {
+    await axios
+      .get("http://localhost:8090/api/getconsults")
+      .then((response) => {
+        setDataFromData(response.data);
 
-    const dataToUseForTable=dataFromData.map((val)=>{
-        return {
-            name: val.name,
-            doctor: val.doctor,
-            consultationroom: val.consultationroom,
-            status: val.status,
-            date:"2024-02-12 23:43 AM",
-            action:   <a
-            className="bg-green-600  text-white rounded-md p-2 bg-blend-color-dodge"
-            href={`consultationdetails/${val.id}`}
-          >
-           Work On Patient
-          </a>
-        }
-         
-
-    })
+        const data = response.data;
+        setDataToUseForTableM(
+          data.map((val) => {
+            return {
+              name: val.patient_name,
+              doctor: val.doctor_assigned,
+              consultationroom: val.consultation,
+              status: val.status,
+              date: new Date(val.date).toISOString().split("T")[0],
+              action: (
+                <a
+                  className="bg-green-600  text-white rounded-md p-2 bg-blend-color-dodge"
+                  href={`consultationdetails/${val.id}`}
+                >
+                  Work On Patient
+                </a>
+              ),
+            };
+          })
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
-
+    dataToUseForTableM && (
       <MaterialReactTable
         columns={columns}
-        data={dataToUseForTable}
+        data={dataToUseForTableM}
         enableColumnResizing
         enableGrouping
         enableStickyHeader
@@ -92,8 +112,7 @@ const Table = (props) => {
         muiToolbarAlertBannerChipProps={{ color: "primary" }}
         muiTableContainerProps={{ sx: { maxHeight: 700 } }}
       />
-    
-    
+    )
   );
 };
 

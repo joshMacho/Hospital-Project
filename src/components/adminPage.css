@@ -46,8 +46,7 @@
     justify-start
     items-center
     mt-2
-    mx-2
-    md:justify-center;
+    mx-2;
   }
   .c-div p {
     @apply font-ekuzoaBold

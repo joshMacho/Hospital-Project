@@ -91,7 +91,7 @@ function Consultations() {
                 <td>{consult.doctor_assigned}</td>
                 <td>{consult.consultation}</td>
                 <td>{consult.status}</td>
-                <td>{consult.date}</td>
+                <td>{new Date(consult.date).toISOString().split("T")[0]}</td>
                 <td>
                   <button onClick={() => openModalWithData(consult)}>
                     <img src={editIcon} alt="" />

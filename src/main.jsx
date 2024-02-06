@@ -9,12 +9,18 @@ import PreviousRecord from "./components/PreviousRecord.jsx";
 import Consultations from "./components/Doctor/Consultations.jsx";
 import ConsultationsDetails from "./components/ConsultationDetails.jsx";
 import Nurse from "./components/Nurse.jsx";
+import { ToastContainer } from "react-toastify";
+import Enterance from "./components/Enterance.jsx";
 
 //you can add your pages here for navigation
 const router = createBrowserRouter([
   {
+    path: "/home",
+    element: <Enterance />,
+  },
+  {
     path: "/",
-    element: <Login />,
+    element: <App />,
   },
   {
     path: "/admin",
@@ -41,5 +47,6 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
+    <ToastContainer />
   </React.StrictMode>
 );

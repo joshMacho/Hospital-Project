@@ -1,6 +1,9 @@
 import { useState } from "react";
 import "./updatePass.css";
 import Loading from "./Loading";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 function UpdatePassword({ isOpen, isClosed, empData }) {
   const [loading, setLoading] = useState(false);
@@ -11,27 +14,45 @@ function UpdatePassword({ isOpen, isClosed, empData }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUserDetails((prevData) => ({ ...prevData, [name]: value }));
+    setFormPassword((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formPassword.password === formPassword.rePassword) {
+      setLoading(true);
+      axios
+        .put(
+          `http://localhost:8090/api/updatepatient/${empData.id}`,
+          formPassword.password
+        )
+        .then((response) => {
+          toast.success(response.data.message, {
+            position: "top-center",
+          });
+          setLoading(false);
+          isClosed();
+        });
+    } else {
+      toast.error("Password missmatch", {
+        position: "top-right",
+      });
+      setLoading(false);
     }
   };
   return (
     <div className="popup-overlay">
-      <form className="pass-form-div">
-        <button
+      <form className="pass-form-div" onSubmit={handleSubmit}>
+        <div
           className="border w-10 border-black rounded-md absolute -top-4 -right-7 bg-slate-500 text-white"
           onClick={isClosed}
         >
           .
-        </button>
-        <div className="head-div">
-          <p>Joshua Kusi-Manu</p>
         </div>
-        <div className="all-inputs">
+        <div className="head-div">
+          <p className="mb-5">{empData.name}</p>
+        </div>
+        <div className="all-inputs mb-5">
           <div className="inner-input-div">
             <label htmlFor="password">Password</label>
             <input

@@ -13,6 +13,7 @@ const consultationRoom = [
 
 function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
   const [patientid, setPatientid] = useState("");
+  const [selectedPatient, setSelectedPatient] = useState({});
   const [consultation, setConsultation] = useState({
     id: "",
     patient: "",
@@ -67,6 +68,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
     setConsultation((prevData) => ({ ...prevData, [name]: value }));
     const selectedName = e.target.options[e.target.selectedIndex].text;
     setConsultation((prevData) => ({ ...prevData, patient: selectedName }));
+    getThePatient(value);
   };
 
   const resetFields = () => {
@@ -88,12 +90,15 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
     e.preventDefault();
     setLoading(true);
     await axios
-      .post("http://localhost:8090/addConsultations", consultation)
+      .post("http://localhost:8090/api/addConsultations", consultation)
       .then((response) => {
-        console.log("inserted Successfully");
+        toast.success(response.data.message, {
+          position: "top-right",
+        });
         resetFields();
-        isClosed();
+        savePatientRecord();
         setLoading(false);
+        isClosed();
       })
       .catch((error) => {
         setLoading(false);
@@ -101,8 +106,60 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
       });
   };
 
+  const savePatientRecord = () => {
+    axios
+      .post("http://138.68.161.4:8222/emr/cis/api/v1/record_visit_info", {
+        visitId: generateRandomId(10),
+
+        hospitalId: "B9-828990-24",
+
+        hospitalName: "Mrinona Hospital",
+
+        doctorName: consultation.doctor,
+
+        patientNationalId: selectedPatient.nID,
+
+        patientName: selectedPatient.name,
+
+        patientPhoneNumber: selectedPatient.contact,
+
+        visitDate: getDate(),
+      })
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e));
+  };
+
+  const getDate = () => {
+    const currentDate = new Date();
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    const dateString = currentDate.toLocaleDateString(undefined, options);
+    return dateString;
+  };
+
+  function generateRandomId(length) {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+
+    return result;
+  }
+
   const handleUpdate = (e, id) => {
     e.preventDefault();
+  };
+
+  const getThePatient = async (id) => {
+    await axios
+      .get(`http://localhost:8090/api/getpatient/${id}`)
+      .then((response) => {
+        setSelectedPatient(response.data);
+      });
   };
 
   return (
@@ -137,6 +194,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
                   id="pulse"
                   value={consultation.pulse}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
               <div className="flex flex-col justify-start w-[300px] mb-2">
@@ -151,6 +209,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
                   id="temperature"
                   value={consultation.temperature}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
               <div className="flex flex-col justify-start w-[300px] mb-2">
@@ -165,6 +224,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
                   id="weight"
                   value={consultation.weight}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
               <div className="flex flex-col justify-start w-[300px] mb-2">
@@ -179,6 +239,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
                   value={consultation.heart_rate}
                   onChange={handleInputChange}
                   id="heart_rate"
+                  required
                 />
               </div>
               <div className="flex flex-col justify-start w-[300px] mb-2">

@@ -8,7 +8,7 @@ import editIcon from "../assets/icons/edit.svg";
 
 ReactModal.setAppElement("#root");
 
-function Patients({ setFieldsforEdit }) {
+function Patients() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [patientData, setPatientData] = useState([]);
   const [editmode, setEditmode] = useState(false);
@@ -16,30 +16,26 @@ function Patients({ setFieldsforEdit }) {
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
-    axios
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (reload) {
+      fetchData();
+    }
+    setReload(false);
+  }, [reload]);
+
+  const fetchData = async () => {
+    await axios
       .get("http://localhost:8090/api/patients")
       .then((response) => {
         setPatientData(response.data);
       })
       .catch((error) => {
-        console.log("Error fetching patient data ", error);
+        console.log(error);
       });
-    setReload(false);
-  }, []);
-
-  useEffect(() => {
-    if (reload) {
-      axios
-        .get("http://localhost:8090/api/patients")
-        .then((response) => {
-          setPatientData(response.data);
-        })
-        .catch((error) => {
-          console.log("Error fetching patient data ", error);
-        });
-      setReload(false);
-    }
-  }, [reload]);
+  };
 
   const openFormPopup = () => {
     setIsFormOpen(true);

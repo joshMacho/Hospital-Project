@@ -6,6 +6,7 @@ import AddStaffForm from "./AddStaffForm";
 import editIcon from "../assets/icons/edit.svg";
 import passwordIcon from "../assets/icons/key.svg";
 import UpdatePassword from "./UpdatePassword";
+import axios from "axios";
 
 ReactModal.setAppElement("#root");
 
@@ -14,35 +15,65 @@ function Staff() {
   const [isUpdatePasswordOpen, setIsUpdatePasswordOpen] = useState(false);
   const [empData, setEmpData] = useState([]);
   const [getSelectedEmployee, setSelectedEmployee] = useState({});
+  const [reload, setReload] = useState(false);
+  const [editData, setEditData] = useState({});
+  const [editM, setEditM] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const request = await fetch("http://localhost:8090/api/Employees");
-        const response = await request.json();
-        console.log(response);
-        setEmpData(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (reload) {
+      fetchData();
+    }
+    setReload(false);
+  }, [reload]);
+
+  const fetchData = async () => {
+    await axios
+      .get("http://localhost:8090/api/Employees")
+      .then((response) => {
+        setEmpData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const openFormPopup = () => {
     setIsFormOpen(true);
   };
 
   const openUpdatePassword = (data) => {
     setIsUpdatePasswordOpen(true);
-    setSelectedEmployee(data);
+    setSelectedEmployee({
+      name: data.name,
+      id: data.id,
+    });
+  };
+  const openFormEdit = (data) => {
+    setEditData({
+      name: data.name,
+      type: data.type,
+      contact: data.contact,
+      username: data.username,
+      email: data.email,
+      id: data.id,
+    });
+    setIsFormOpen(true);
+    setEditM(true);
   };
 
   const closeFormPopup = () => {
     setIsFormOpen(false);
+    setReload(true);
   };
   const closeUpdatePassword = () => {
     setIsUpdatePasswordOpen(false);
+  };
+
+  const handledDoneEditting = (isDone) => {
+    setEditM(isDone);
   };
 
   return (
@@ -57,9 +88,12 @@ function Staff() {
         <AddStaffForm
           isOpen={isFormOpen}
           isClosed={closeFormPopup}
-          empData={getSelectedEmployee}
+          data={editData}
+          editMode={editM}
+          doneEditing={handledDoneEditting}
         />
       </ReactModal>
+
       <ReactModal
         isOpen={isUpdatePasswordOpen}
         onRequestClose={closeUpdatePassword}
@@ -70,6 +104,7 @@ function Staff() {
         <UpdatePassword
           isOpen={isUpdatePasswordOpen}
           isClosed={closeUpdatePassword}
+          empData={getSelectedEmployee}
         />
       </ReactModal>
       <div className="staff-d1">
@@ -119,7 +154,7 @@ function Staff() {
                         <button onClick={() => openUpdatePassword(data)}>
                           <img src={passwordIcon} />
                         </button>
-                        <button>
+                        <button onClick={() => openFormEdit(data)}>
                           <img src={editIcon} />
                         </button>
                       </div>
