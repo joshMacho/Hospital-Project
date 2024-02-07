@@ -61,10 +61,10 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
     e.preventDefault();
     setLoading(true);
     await axios
-      .post("http://localhost:5173/api/addPatient", patientDetails)
+      .post("http://localhost:8090/api/addPatient", patientDetails)
       .then((response) => {
         toast.success(response.data.message, {
-          position: "bottom-right",
+          position: "top-right",
         });
         setLoading(false);
         isClosed();
