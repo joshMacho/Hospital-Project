@@ -8,8 +8,21 @@ import editIcon from "../assets/icons/edit.svg";
 function Consultations() {
   const [consultations, setConsultations] = useState([]);
   const [modalData, setModalData] = useState(null);
+  const [reload, setReload] = useState(false);
+
   useEffect(() => {
-    axios
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (reload) {
+      fetchData();
+    }
+    setReload(false);
+  }, [reload]);
+
+  const fetchData = async () => {
+    await axios
       .get("http://localhost:8090/api/getconsults")
       .then((response) => {
         setConsultations(response.data);
@@ -17,7 +30,7 @@ function Consultations() {
       .catch((error) => {
         console.log("Error fetching patient data ", error);
       });
-  }, []);
+  };
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const openFormPopup = () => {
@@ -26,6 +39,7 @@ function Consultations() {
 
   const closeFormPopup = () => {
     setIsFormOpen(false);
+    setReload(true);
   };
 
   const openModalWithData = (data) => {
@@ -69,6 +83,7 @@ function Consultations() {
             className="font-ekuzoaLight text-slate-500 bg-transparent "
             type="text"
             placeholder="Search Patient"
+            id="search"
           />
         </div>
       </div>
