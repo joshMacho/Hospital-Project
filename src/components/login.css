@@ -32,7 +32,8 @@
     @apply flex
     justify-center
     items-center
-    h-[100vh];
+    h-[100vh]
+    bg-gray-700;
   }
   .div-props {
     @apply h-[380px]
@@ -44,15 +45,18 @@
     rounded-xl
     md:block;
   }
-  .form-div {
+  .f-div {
     @apply flex
     flex-col
     max-w-screen-sm
-    bg-slate-200
     rounded-lg
     justify-evenly
     items-center
-    relative;
+    relative
+    shadow-md
+    shadow-gray-800
+    border
+    border-gray-300;
   }
   .login-form {
     @apply flex
@@ -92,10 +96,12 @@
   .login-elements-div input {
     @apply bg-transparent
     font-ekuzoaMedium
-    text-[18px];
+    text-[18px]
+    text-gray-300;
   }
   .login-elements-div input:focus {
-    @apply outline-none;
+    @apply outline-none
+    bg-none;
   }
   .login-elements-div input::placeholder {
     @apply font-ekuzoaMedium 
@@ -134,7 +140,7 @@
     px-2
     rounded-lg
     font-ekuzoaBold
-    text-slate-800
+    text-slate-300
     text-center
     text-[20px];
   }
@@ -148,7 +154,8 @@
     @apply absolute
     w-full
     top-0
-    bg-red-200;
+    bg-red-400
+    rounded-lg;
   }
   .error-div p {
     @apply text-center

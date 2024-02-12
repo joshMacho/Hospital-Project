@@ -30,7 +30,7 @@
 @layer base {
   .m-d {
     @apply w-full
-        h-full
+        h-[100vh]
         flex flex-col
         bg-slate-200;
   }
@@ -59,8 +59,8 @@
     flex-col
     items-center
     justify-center
-    w-full
-    h-32
+    
+    h-24
     shadow-md;
   }
   .btn-div p {

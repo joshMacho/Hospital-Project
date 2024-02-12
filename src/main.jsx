@@ -19,6 +19,10 @@ const router = createBrowserRouter([
     element: <Enterance />,
   },
   {
+    path: "/login",
+    element: <Login />,
+  },
+  {
     path: "/",
     element: <App />,
   },
