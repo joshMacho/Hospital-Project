@@ -55,11 +55,11 @@
     @apply flex
     justify-end
     items-center
-     w-full;
+     w-full
+     mt-2
+     mx-2;
   }
-  .home-div img {
-    @apply w-[25px] h-[25px];
-  }
+
   .t-b-div button {
     @apply p-1
     w-[70px]

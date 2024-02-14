@@ -21,13 +21,13 @@ function AdminPage() {
         await axios
           .get("http://localhost:8090/api/validate", { withCredentials: true })
           .then((response) => {
+            console.log(response.data.user.type);
             if (response.data.user.type === "Admin") {
+              setLoginUser(response.data.user.name);
+            } else {
               toast.error("Authentication is not for this page", {
                 position: "top-right",
               });
-              navigateTo("/");
-            } else {
-              setLoginUser(response.data.user.name);
             }
           });
         // If the token is valid, do nothing

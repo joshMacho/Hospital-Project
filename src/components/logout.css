@@ -40,6 +40,6 @@
     hover:bg-gray-400;
   }
   .logout-action p {
-    @apply mr-2 p-1 text-gray-700;
+    @apply mr-2 p-1 text-gray-700 font-ekuzoaBold;
   }
 }

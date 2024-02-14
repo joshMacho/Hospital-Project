@@ -23,12 +23,12 @@ function Nurse() {
           .get("http://localhost:8090/api/validate", { withCredentials: true })
           .then((response) => {
             if (response.data.user.type === "Nurse") {
+              setLoginUser(response.data.user.name);
+            } else {
               toast.error("Authentication is not for this page", {
                 position: "top-right",
               });
               navigateTo("/");
-            } else {
-              setLoginUser(response.data.user.name);
             }
           });
         // If the token is valid, do nothing
