@@ -22,10 +22,9 @@ function UpdatePassword({ isOpen, isClosed, empData }) {
     if (formPassword.password === formPassword.rePassword) {
       setLoading(true);
       axios
-        .put(
-          `http://localhost:8090/api/updatepatient/${empData.id}`,
-          formPassword.password
-        )
+        .put(`http://localhost:8090/api/updatePassword/${empData.id}`, {
+          password: formPassword.password,
+        })
         .then((response) => {
           toast.success(response.data.message, {
             position: "top-center",

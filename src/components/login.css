@@ -125,6 +125,11 @@
     rounded-lg
     hover:shadow-black
     h-12
+    flex
+    justify-center
+    items-center
+    disabled:opacity-40
+    disabled:cursor-not-allowed
     hover:shadow-md
     hover:scale-105;
   }

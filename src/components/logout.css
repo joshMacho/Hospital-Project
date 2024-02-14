@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Gilroy-Medium";
+  src: url("../assets/fonts/Gilroy-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Bold";
+  src: url("../assets/fonts/Gilroy-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Heavy";
+  src: url("../assets/fonts/Gilroy-Heavy.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Light";
+  src: url("../assets/fonts/Gilroy-Light.ttf");
+}
+
+@font-face {
+  font-family: "Gilroy-Regular";
+  src: url("../assets/fonts/Gilroy-Regular.ttf");
+}
+
+@layer base {
+  .logout-main {
+    @apply flex items-center justify-center relative;
+  }
+  .logout-div {
+    @apply flex justify-center items-center shadow-sm shadow-black;
+  }
+  .logout-action {
+    @apply flex items-center justify-center text-gray-700 
+    hover:cursor-pointer
+    hover:bg-gray-400;
+  }
+  .logout-action p {
+    @apply mr-2 p-1 text-gray-700;
+  }
+}
