@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./adminPage.css";
 import Dashboard from "./Dashboard";
 import Staff from "./Staff";
 import dashboardIcon from "../assets/icons/layers.svg";
 import staffsIcon from "../assets/icons/staffs.svg";
 import { useNavigate } from "react-router";
-import React, { useContext, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,7 +21,14 @@ function AdminPage() {
         await axios
           .get("http://localhost:8090/api/validate", { withCredentials: true })
           .then((response) => {
-            setLoginUser(response.data.user.name);
+            if (response.data.user.type === "Admin") {
+              toast.error("Authentication is not for this page", {
+                position: "top-right",
+              });
+              navigateTo("/");
+            } else {
+              setLoginUser(response.data.user.name);
+            }
           });
         // If the token is valid, do nothing
       } catch (error) {

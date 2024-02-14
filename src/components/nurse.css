@@ -53,7 +53,7 @@
   }
   .home-div {
     @apply flex
-    justify-start
+    justify-end
     items-center
      w-full;
   }
@@ -62,7 +62,6 @@
   }
   .t-b-div button {
     @apply p-1
-    
     w-[70px]
     flex
     justify-center
