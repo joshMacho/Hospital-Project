@@ -16,10 +16,6 @@ import AuthProvider from "./AuthProvider.jsx";
 //you can add your pages here for navigation
 const router = createBrowserRouter([
   {
-    path: "/home",
-    element: <Enterance />,
-  },
-  {
     path: "/login",
     element: <Login />,
   },

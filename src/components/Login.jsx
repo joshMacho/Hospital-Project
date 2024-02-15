@@ -7,6 +7,7 @@ import Loading from "./Loading";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "./apibase";
 
 function Login() {
   const navigateTo = useNavigate();
@@ -35,7 +36,7 @@ function Login() {
     setLoading(true);
     await axios
       .post(
-        "http://localhost:8090/api/login",
+        `${API_BASE_URL}/login`,
         {
           username: loginData.userName,
           password: loginData.password,
@@ -43,8 +44,10 @@ function Login() {
         { withCredentials: true }
       )
       .then((response) => {
-        navTree(response.data);
-        //console.log(response.data);
+        toast.success(`Welcome ${response.data.name}`, {
+          position: "top-right",
+        });
+        navTree(response.data.type);
         setLoading(false);
       })
       .catch((error) => {

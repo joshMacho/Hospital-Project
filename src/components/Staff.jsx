@@ -7,6 +7,7 @@ import editIcon from "../assets/icons/edit.svg";
 import passwordIcon from "../assets/icons/key.svg";
 import UpdatePassword from "./UpdatePassword";
 import axios from "axios";
+import { API_BASE_URL } from "./apibase";
 
 ReactModal.setAppElement("#root");
 
@@ -32,7 +33,7 @@ function Staff() {
 
   const fetchData = async () => {
     await axios
-      .get("http://localhost:8090/api/Employees")
+      .get(`${API_BASE_URL}/Employees`)
       .then((response) => {
         setEmpData(response.data);
       })

@@ -9,6 +9,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logout from "./Logout";
+import { API_BASE_URL } from "./apibase";
 
 function AdminPage() {
   const [loginUser, setLoginUser] = useState("");
@@ -19,7 +20,7 @@ function AdminPage() {
       try {
         // Make a request to a backend endpoint to validate the token
         await axios
-          .get("http://localhost:8090/api/validate", { withCredentials: true })
+          .get(`${API_BASE_URL}/validate`, { withCredentials: true })
           .then((response) => {
             console.log(response.data.user.type);
             if (response.data.user.type === "Admin") {
@@ -57,7 +58,7 @@ function AdminPage() {
 
   const logout = async () => {
     await axios
-      .get("http://localhost:8090/api/logout", { withCredentials: true })
+      .get(`${API_BASE_URL}/logout`, { withCredentials: true })
       .then((response) => {
         toast.success(response.data, {
           position: "top-right",

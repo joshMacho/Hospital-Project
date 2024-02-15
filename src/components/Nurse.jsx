@@ -9,6 +9,7 @@ import Logout from "./Logout";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_BASE_URL } from "./apibase";
 
 function Nurse() {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -20,7 +21,7 @@ function Nurse() {
       try {
         // Make a request to a backend endpoint to validate the token
         await axios
-          .get("http://localhost:8090/api/validate", { withCredentials: true })
+          .get(`${API_BASE_URL}/validate`, { withCredentials: true })
           .then((response) => {
             if (response.data.user.type === "Nurse") {
               setLoginUser(response.data.user.name);
@@ -56,7 +57,7 @@ function Nurse() {
 
   const logout = async () => {
     await axios
-      .get("http://localhost:8090/api/logout", { withCredentials: true })
+      .get(`${API_BASE_URL}/logout`, { withCredentials: true })
       .then((response) => {
         toast.success(response.data, {
           position: "top-right",

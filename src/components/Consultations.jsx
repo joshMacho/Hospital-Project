@@ -4,6 +4,7 @@ import AddConsultation from "./AddConsultation";
 import ReactModal from "react-modal";
 import axios from "axios";
 import editIcon from "../assets/icons/edit.svg";
+import { API_BASE_URL } from "./apibase";
 
 function Consultations() {
   const [consultations, setConsultations] = useState([]);
@@ -23,7 +24,7 @@ function Consultations() {
 
   const fetchData = async () => {
     await axios
-      .get("http://localhost:8090/api/getconsults")
+      .get(`${API_BASE_URL}/getconsults`)
       .then((response) => {
         setConsultations(response.data);
       })
@@ -108,7 +109,11 @@ function Consultations() {
                 <td>{consult.status}</td>
                 <td>{new Date(consult.date).toISOString().split("T")[0]}</td>
                 <td>
-                  <button onClick={() => openModalWithData(consult)}>
+                  <button
+                    onClick={() => openModalWithData(consult)}
+                    disabled={true}
+                    className="disabled:opacity-30"
+                  >
                     <img src={editIcon} alt="" />
                   </button>
                 </td>

@@ -5,6 +5,7 @@ import ReactModal from "react-modal";
 import AddNewPatient from "./AddNewPatient";
 import axios from "axios";
 import editIcon from "../assets/icons/edit.svg";
+import { API_BASE_URL } from "./apibase";
 
 ReactModal.setAppElement("#root");
 
@@ -28,7 +29,7 @@ function Patients() {
 
   const fetchData = async () => {
     await axios
-      .get("http://localhost:8090/api/patients")
+      .get(`${API_BASE_URL}/patients`)
       .then((response) => {
         setPatientData(response.data);
       })
