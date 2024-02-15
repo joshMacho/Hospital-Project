@@ -46,10 +46,9 @@ function Login() {
         navTree(response.data);
         //console.log(response.data);
         setLoading(false);
-
-        setLoading(false);
       })
       .catch((error) => {
+        setError(true);
         console.log("Error: ", error.response.data);
         setLoading(false);
       });
