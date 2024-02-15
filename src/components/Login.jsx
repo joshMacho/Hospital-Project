@@ -3,13 +3,20 @@ import { useState } from "react";
 import axios from "axios";
 import userIcon from "../assets/icons/user.svg";
 import passwordIcon from "../assets/icons/lock.svg";
+import Loading from "./Loading";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "./apibase";
 
 function Login() {
+  const navigateTo = useNavigate();
   const [loginData, setLoginData] = useState({
     userName: "",
     password: "",
   });
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -26,17 +33,44 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     await axios
-      .post("http://localhost:8080/api/login", {
-        username: loginData.userName,
-        password: loginData.password,
-      })
+      .post(
+        `${API_BASE_URL}/login`,
+        {
+          username: loginData.userName,
+          password: loginData.password,
+        },
+        { withCredentials: true }
+      )
       .then((response) => {
-        console.log(response.data);
+        toast.success(`Welcome ${response.data.name}`, {
+          position: "top-right",
+        });
+        navTree(response.data.type);
+        setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        setError(true);
+        console.log("Error: ", error.response.data);
+        setLoading(false);
       });
+  };
+
+  const navTree = (path) => {
+    switch (path) {
+      case "Doctor":
+        navigateTo("/consultations");
+        break;
+      case "Nurse":
+        navigateTo("/nurse");
+        break;
+      case "Admin":
+        navigateTo("/admin");
+        break;
+      default:
+        navigateTo("/");
+    }
   };
 
   return (
@@ -60,6 +94,7 @@ function Login() {
                   name="userName"
                   value={loginData.userName}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
             </div>
@@ -73,13 +108,17 @@ function Login() {
                   name="password"
                   value={loginData.password}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
             </div>
           </div>
 
           <div className="button-div">
-            <button type="submit">Login</button>
+            <button type="submit" disabled={loading}>
+              {loading ? <Loading /> : ""}
+              Login
+            </button>
           </div>
         </form>
       </div>

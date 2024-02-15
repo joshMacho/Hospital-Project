@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import ReactModal from "react-modal";
 import { useForm, Controller, useFieldArray, useWatch } from "react-hook-form";
+import { API_BASE_URL } from "./apibase";
 
 ReactModal.setAppElement("#root");
 
@@ -48,7 +49,7 @@ const ConsultationsDetails = () => {
     const getConsultationDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/getconsult/${patientID}`
+          `${API_BASE_URL}/getconsult/${patientID}`
         );
         setPatientConsult(response.data);
         reset({

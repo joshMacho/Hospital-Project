@@ -1,14 +1,48 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./adminPage.css";
 import Dashboard from "./Dashboard";
 import Staff from "./Staff";
 import dashboardIcon from "../assets/icons/layers.svg";
 import staffsIcon from "../assets/icons/staffs.svg";
-import homeIcon from "../assets/icons/home.svg";
 import { useNavigate } from "react-router";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Logout from "./Logout";
+import { API_BASE_URL } from "./apibase";
 
 function AdminPage() {
+  const [loginUser, setLoginUser] = useState("");
+  const navigateTo = useNavigate();
+
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      try {
+        // Make a request to a backend endpoint to validate the token
+        await axios
+          .get(`${API_BASE_URL}/validate`, { withCredentials: true })
+          .then((response) => {
+            console.log(response.data.user.type);
+            if (response.data.user.type === "Admin") {
+              setLoginUser(response.data.user.name);
+            } else {
+              toast.error("Authentication is not for this page", {
+                position: "top-right",
+              });
+            }
+          });
+        // If the token is valid, do nothing
+      } catch (error) {
+        console.log(error.response.error);
+        navigateTo("/");
+      }
+    };
+
+    checkAuthentication();
+  }, []);
+
   const [selectedTab, setSelectedTab] = useState(1);
+
   const handleDashboard = (e) => {
     e.preventDefault();
     setSelectedTab(1);
@@ -18,16 +52,29 @@ function AdminPage() {
     setSelectedTab(2);
   };
 
-  const navigateTo = useNavigate();
-
-  const goToHomepage = () => {
-    navigateTo("/home");
+  const getUser = () => {
+    return loginUser;
   };
+
+  const logout = async () => {
+    await axios
+      .get(`${API_BASE_URL}/logout`, { withCredentials: true })
+      .then((response) => {
+        toast.success(response.data, {
+          position: "top-right",
+        });
+        navigateTo("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="admin-main-div">
       <div className="top-bar-div">
         <div className="c-div">
-          <img src={homeIcon} onClick={goToHomepage} />
+          <Logout getUser={getUser()} logout={() => logout()} />
         </div>
         <div className="nav-buttons-div">
           <button

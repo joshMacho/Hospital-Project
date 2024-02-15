@@ -4,6 +4,7 @@ import Loading from "./Loading.jsx";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { API_BASE_URL } from "./apibase.js";
 
 const staffType = [
   "Admin",
@@ -31,7 +32,7 @@ function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/types");
+        const response = await fetch(`${API_BASE_URL}/types`);
         const results = await response.json();
         setTypes(results);
       } catch (error) {
@@ -68,7 +69,7 @@ function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
     if (userDetails.password === rePassword) {
       setLoading(true);
       await axios
-        .post("http://localhost:8080/api/insertEmp", userDetails)
+        .post(`${API_BASE_URL}/insertEmp`, userDetails)
         .then((response) => {
           toast.success(response.data.message, {
             position: "top-right",
@@ -92,10 +93,7 @@ function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
     e.preventDefault();
     setLoading(true);
     await axios
-      .put(
-        `http://localhost:8080/api/updateEmployee/${userDetails.id}`,
-        userDetails
-      )
+      .put(`${API_BASE_URL}/updateEmployee/${userDetails.id}`, userDetails)
       .then((response) => {
         toast.success(response.data.message, {
           position: "top-right",

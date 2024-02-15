@@ -43,7 +43,7 @@
   }
   .c-div {
     @apply flex
-    justify-start
+    justify-end
     items-center
     mt-2
     mx-2;

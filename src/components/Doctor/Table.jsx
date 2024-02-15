@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { MaterialReactTable } from "material-react-table";
 import axios from "axios";
+import { API_BASE_URL } from "../apibase";
 
 const Table = (props) => {
   //should be memoized or stable
@@ -59,7 +60,7 @@ const Table = (props) => {
   const [dataToUseForTableM, setDataToUseForTableM] = useState([]);
   const fetchData = async () => {
     await axios
-      .get("http://localhost:8080/api/getconsults")
+      .get(`${API_BASE_URL}/getconsults`)
       .then((response) => {
         setDataFromData(response.data);
 

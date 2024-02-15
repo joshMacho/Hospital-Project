@@ -3,6 +3,7 @@ import Loading from "./Loading.jsx";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { API_BASE_URL } from "./apibase.js";
 
 const consultationRoom = [
   "Consulting Room 1",
@@ -32,7 +33,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/patients")
+      .get(`${API_BASE_URL}/patients`)
       .then((response) => {
         setPatientInfo(response.data);
       })
@@ -42,7 +43,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
   }, []);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/doctors")
+      .get(`${API_BASE_URL}/doctors`)
       .then((response) => {
         setDoctorsInfo(response.data);
       })
@@ -90,7 +91,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
     e.preventDefault();
     setLoading(true);
     await axios
-      .post("http://localhost:8080/api/addConsultations", consultation)
+      .post(`${API_BASE_URL}/addConsultations`, consultation)
       .then((response) => {
         toast.success(response.data.message, {
           position: "top-right",
@@ -155,11 +156,9 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
   };
 
   const getThePatient = async (id) => {
-    await axios
-      .get(`http://localhost:8080/api/getpatient/${id}`)
-      .then((response) => {
-        setSelectedPatient(response.data);
-      });
+    await axios.get(`${API_BASE_URL}/getpatient/${id}`).then((response) => {
+      setSelectedPatient(response.data);
+    });
   };
 
   return (

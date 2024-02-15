@@ -3,6 +3,7 @@ import Loading from "./Loading.jsx";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { API_BASE_URL } from "./apibase.js";
 
 const gender = ["Male", "Female"];
 const marriage = ["Single", "Married", "Divorced", "Widow"];
@@ -61,7 +62,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
     e.preventDefault();
     setLoading(true);
     await axios
-      .post("http://localhost:8080/api/addPatient", patientDetails)
+      .post(`${API_BASE_URL}/addPatient`, patientDetails)
       .then((response) => {
         toast.success(response.data.message, {
           position: "top-right",
@@ -94,7 +95,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
     e.preventDefault();
     setLoading(true);
     await axios
-      .put(`http://localhost:8080/api/updatepatient/${id}`, patientDetails)
+      .put(`${API_BASE_URL}/updatepatient/${id}`, patientDetails)
       .then((response) => {
         if (response.status >= 200 && response.status < 500) {
           toast.success(response.data.message, {

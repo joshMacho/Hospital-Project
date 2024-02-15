@@ -11,13 +11,10 @@ import ConsultationsDetails from "./components/ConsultationDetails.jsx";
 import Nurse from "./components/Nurse.jsx";
 import { ToastContainer } from "react-toastify";
 import Enterance from "./components/Enterance.jsx";
+import AuthProvider from "./AuthProvider.jsx";
 
 //you can add your pages here for navigation
 const router = createBrowserRouter([
-  {
-    path: "/home",
-    element: <Enterance />,
-  },
   {
     path: "/login",
     element: <Login />,

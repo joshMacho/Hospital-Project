@@ -4,6 +4,7 @@ import Loading from "./Loading";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { API_BASE_URL } from "./apibase";
 
 function UpdatePassword({ isOpen, isClosed, empData }) {
   const [loading, setLoading] = useState(false);
@@ -22,10 +23,9 @@ function UpdatePassword({ isOpen, isClosed, empData }) {
     if (formPassword.password === formPassword.rePassword) {
       setLoading(true);
       axios
-        .put(
-          `http://localhost:8080/api/updatepatient/${empData.id}`,
-          formPassword.password
-        )
+        .put(`${API_BASE_URL}/updatePassword/${empData.id}`, {
+          password: formPassword.password,
+        })
         .then((response) => {
           toast.success(response.data.message, {
             position: "top-center",
