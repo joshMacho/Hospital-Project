@@ -61,7 +61,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
     e.preventDefault();
     setLoading(true);
     await axios
-      .post("http://localhost:8090/api/addPatient", patientDetails)
+      .post("http://localhost:8080/api/addPatient", patientDetails)
       .then((response) => {
         toast.success(response.data.message, {
           position: "top-right",
@@ -94,7 +94,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
     e.preventDefault();
     setLoading(true);
     await axios
-      .put(`http://localhost:8090/api/updatepatient/${id}`, patientDetails)
+      .put(`http://localhost:8080/api/updatepatient/${id}`, patientDetails)
       .then((response) => {
         if (response.status >= 200 && response.status < 500) {
           toast.success(response.data.message, {

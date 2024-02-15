@@ -32,7 +32,7 @@ function Staff() {
 
   const fetchData = async () => {
     await axios
-      .get("http://localhost:8090/api/Employees")
+      .get("http://localhost:8080/api/Employees")
       .then((response) => {
         setEmpData(response.data);
       })

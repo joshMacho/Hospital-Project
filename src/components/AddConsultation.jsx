@@ -32,7 +32,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:8090/api/patients")
+      .get("http://localhost:8080/api/patients")
       .then((response) => {
         setPatientInfo(response.data);
       })
@@ -42,7 +42,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
   }, []);
   useEffect(() => {
     axios
-      .get("http://localhost:8090/api/doctors")
+      .get("http://localhost:8080/api/doctors")
       .then((response) => {
         setDoctorsInfo(response.data);
       })
@@ -90,7 +90,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
     e.preventDefault();
     setLoading(true);
     await axios
-      .post("http://localhost:8090/api/addConsultations", consultation)
+      .post("http://localhost:8080/api/addConsultations", consultation)
       .then((response) => {
         toast.success(response.data.message, {
           position: "top-right",
@@ -156,7 +156,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
 
   const getThePatient = async (id) => {
     await axios
-      .get(`http://localhost:8090/api/getpatient/${id}`)
+      .get(`http://localhost:8080/api/getpatient/${id}`)
       .then((response) => {
         setSelectedPatient(response.data);
       });

@@ -23,7 +23,7 @@ function UpdatePassword({ isOpen, isClosed, empData }) {
       setLoading(true);
       axios
         .put(
-          `http://localhost:8090/api/updatepatient/${empData.id}`,
+          `http://localhost:8080/api/updatepatient/${empData.id}`,
           formPassword.password
         )
         .then((response) => {

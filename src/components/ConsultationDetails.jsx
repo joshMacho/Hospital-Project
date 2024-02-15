@@ -48,7 +48,7 @@ const ConsultationsDetails = () => {
     const getConsultationDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8090/api/getconsult/${patientID}`
+          `http://localhost:8080/api/getconsult/${patientID}`
         );
         setPatientConsult(response.data);
         reset({

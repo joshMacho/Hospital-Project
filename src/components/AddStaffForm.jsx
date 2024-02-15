@@ -31,7 +31,7 @@ function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8090/api/types");
+        const response = await fetch("http://localhost:8080/api/types");
         const results = await response.json();
         setTypes(results);
       } catch (error) {
@@ -68,7 +68,7 @@ function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
     if (userDetails.password === rePassword) {
       setLoading(true);
       await axios
-        .post("http://localhost:8090/api/insertEmp", userDetails)
+        .post("http://localhost:8080/api/insertEmp", userDetails)
         .then((response) => {
           toast.success(response.data.message, {
             position: "top-right",
@@ -93,7 +93,7 @@ function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
     setLoading(true);
     await axios
       .put(
-        `http://localhost:8090/api/updateEmployee/${userDetails.id}`,
+        `http://localhost:8080/api/updateEmployee/${userDetails.id}`,
         userDetails
       )
       .then((response) => {

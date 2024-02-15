@@ -59,7 +59,7 @@ const Table = (props) => {
   const [dataToUseForTableM, setDataToUseForTableM] = useState([]);
   const fetchData = async () => {
     await axios
-      .get("http://localhost:8090/api/getconsults")
+      .get("http://localhost:8080/api/getconsults")
       .then((response) => {
         setDataFromData(response.data);
 

@@ -28,7 +28,7 @@ function Patients() {
 
   const fetchData = async () => {
     await axios
-      .get("http://localhost:8090/api/patients")
+      .get("http://localhost:8080/api/patients")
       .then((response) => {
         setPatientData(response.data);
       })
