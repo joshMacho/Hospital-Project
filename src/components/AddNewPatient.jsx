@@ -130,7 +130,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
                 ? (e) => updatePatient(e, patientDetails.id)
                 : (e) => handleSubmit(e)
             }
-            className="flex flex-col justify-center relative items-center rounded-lg shadow shadow-slate-500 w-[400px]"
+            className="flex flex-col bg-gray-400 justify-center relative items-center rounded-lg shadow shadow-slate-500 w-[400px]"
           >
             <div>
               <p className="font-ekuzoaBold">{`${
@@ -147,7 +147,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
               <div className="flex flex-col justify-start w-[300px] mb-2">
                 <label className="font-ekuzoaMedium">Name</label>
                 <input
-                  className="focus:outline-none bg-gray-100 placeholder:font-ekuzoaLight"
+                  className="focus:outline-none bg-gray-300 placeholder:font-ekuzoaLight"
                   type="text"
                   placeholder="Patient Name"
                   name="name"
@@ -160,7 +160,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
               <div className="flex flex-col justify-start w-[300px] mb-2">
                 <label className="font-ekuzoaMedium">Email</label>
                 <input
-                  className="focus:outline-none bg-gray-100 placeholder:font-ekuzoaLight"
+                  className="focus:outline-none bg-gray-300 placeholder:font-ekuzoaLight"
                   type="text"
                   placeholder="Email"
                   name="email"
@@ -190,7 +190,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
               <div className="flex flex-col justify-start w-[300px] mb-2">
                 <label className="font-ekuzoaMedium">Contact</label>
                 <input
-                  className="focus:outline-none bg-gray-100 placeholder:font-ekuzoaLight"
+                  className="focus:outline-none bg-gray-300 placeholder:font-ekuzoaLight"
                   type="text"
                   placeholder="Contact"
                   name="contact"
@@ -205,7 +205,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
                   DOB
                 </label>
                 <input
-                  className="focus:outline-none bg-gray-100 placeholder:font-ekuzoaLight"
+                  className="focus:outline-none bg-gray-300 placeholder:font-ekuzoaLight"
                   type="text"
                   placeholder="Date of Birth"
                   name="dob"
@@ -236,7 +236,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
                   Address
                 </label>
                 <input
-                  className="focus:outline-none bg-gray-100 placeholder:font-ekuzoaLight"
+                  className="focus:outline-none bg-gray-300 placeholder:font-ekuzoaLight"
                   type="text"
                   placeholder="Address"
                   name="address"
@@ -251,7 +251,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
                   Next of Kin
                 </label>
                 <input
-                  className="focus:outline-none bg-gray-100 placeholder:font-ekuzoaLight"
+                  className="focus:outline-none bg-gray-300 placeholder:font-ekuzoaLight"
                   type="text"
                   placeholder="Next of kin"
                   name="next_of_kin"
@@ -265,7 +265,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
                   National ID
                 </label>
                 <input
-                  className="focus:outline-none bg-gray-100 placeholder:font-ekuzoaLight"
+                  className="focus:outline-none bg-gray-300 placeholder:font-ekuzoaLight"
                   type="text"
                   placeholder="Ghana Card"
                   name="nID"

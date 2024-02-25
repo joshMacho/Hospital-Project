@@ -169,7 +169,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
             onSubmit={
               formEdit ? (e) => handleUpdate(e) : (e) => handleSubmit(e)
             }
-            className="flex flex-col justify-center relative items-center rounded-lg shadow shadow-slate-500 w-[400px]"
+            className="flex flex-col justify-center relative items-center rounded-lg shadow shadow-slate-500 w-[400px] bg-gray-400"
           >
             <div>
               <p className="font-ekuzoaBold">Add Consultation</p>
@@ -186,7 +186,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
                   Pulse
                 </label>
                 <input
-                  className="focus:outline-none bg-gray-100 pl-2 rounded-sm placeholder:font-ekuzoaLight"
+                  className="focus:outline-none bg-gray-300 pl-2 rounded-sm placeholder:font-ekuzoaLight"
                   type="text"
                   placeholder="Pulse"
                   name="pulse"
@@ -201,7 +201,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
                   Temperature
                 </label>
                 <input
-                  className="focus:outline-none bg-gray-100 pl-2 rounded-sm placeholder:font-ekuzoaLight"
+                  className="focus:outline-none bg-gray-300 pl-2 rounded-sm placeholder:font-ekuzoaLight"
                   type="text"
                   placeholder="Temperature"
                   name="temperature"
@@ -216,7 +216,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
                   Weight
                 </label>
                 <input
-                  className="focus:outline-none bg-gray-100 pl-2 rounded-sm placeholder:font-ekuzoaLight"
+                  className="focus:outline-none bg-gray-300 pl-2 rounded-sm placeholder:font-ekuzoaLight"
                   type="text"
                   placeholder="Weight"
                   name="weight"
@@ -231,7 +231,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
                   Heart Rate
                 </label>
                 <input
-                  className="focus:outline-none bg-gray-100 pl-2 rounded-sm placeholder:font-ekuzoaLight"
+                  className="focus:outline-none bg-gray-300 pl-2 rounded-sm placeholder:font-ekuzoaLight"
                   type="text"
                   placeholder="Heart Rate"
                   name="heart_rate"
@@ -246,7 +246,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
                   Patient Name
                 </label>
                 <select
-                  className="bg-gray-100"
+                  className="bg-gray-300"
                   id="patient"
                   name="patient_id"
                   required
@@ -269,7 +269,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
                   id="doctor"
                   onSelect={handleInputChange}
                   required
-                  className="bg-gray-100"
+                  className="bg-gray-300"
                   name="doctor"
                   value={consultation.doctor}
                   onChange={handleInputChange}
@@ -294,7 +294,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
                   name="consultation_room"
                   required
                   onSelect={handleInputChange}
-                  className="bg-gray-100"
+                  className="bg-gray-300"
                   value={consultation.consultation_room}
                   onChange={handleInputChange}
                 >

@@ -57,7 +57,7 @@
     px-5
     my-2
     mx-4
-    bg-white
+    bg-gray-400
     relative
     md:h-[3/4vh]
     md:w-1/2;
@@ -100,7 +100,7 @@
     font-ekuzoaMedium
     px-2
     py-1
-    bg-slate-200
+    bg-gray-300
     mx-2;
   }
   .inner-input-div input:focus {
