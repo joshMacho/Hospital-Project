@@ -1,0 +1,35 @@
+FROM node
+
+# Switch to root user for access to apt-get install
+USER root
+
+
+#RUN rm -rf /src/node_modules
+#RUN rm -rf /src/package-lock.json
+
+RUN apt-get -y update  && \
+        apt-get install -y curl && \
+        curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
+        apt-get install -y nodejs && \
+        apt-get install -y dos2unix
+
+# Install tedious, the driver for SQL Server for Node.js
+
+# Create app directory
+RUN mkdir -p /usr/src/app 
+USER root
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package.json /usr/src/app/
+RUN npm install
+
+# Bundle app source
+COPY . /usr/src/app
+
+RUN dos2unix *
+
+EXPOSE 5454
+
+# Switch back to mssql user and run the entrypoint script
+CMD ["npm","run", "dev","--host"]
