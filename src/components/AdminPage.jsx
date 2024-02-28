@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import "./adminPage.css";
-import Dashboard from "./Dashboard";
-import Staff from "./Staff";
 import dashboardIcon from "../assets/icons/layers.svg";
 import staffsIcon from "../assets/icons/staffs.svg";
 import { useNavigate } from "react-router";
@@ -11,6 +9,11 @@ import "react-toastify/dist/ReactToastify.css";
 import Logout from "./Logout";
 import { API_BASE_URL } from "./apibase";
 
+// Lazy-load Dashboard component
+const Dashboard = React.lazy(() => import("./Dashboard"));
+// Lazy-load Staff component
+const Staff = React.lazy(() => import("./Staff"));
+
 function AdminPage() {
   const [loginUser, setLoginUser] = useState("");
   const navigateTo = useNavigate();
@@ -19,19 +22,17 @@ function AdminPage() {
     const checkAuthentication = async () => {
       try {
         // Make a request to a backend endpoint to validate the token
-        await axios
-          .get(`${API_BASE_URL}/validate`, { withCredentials: true })
-          .then((response) => {
-            console.log(response.data.user.type);
-            if (response.data.user.type === "Admin") {
-              setLoginUser(response.data.user.name);
-            } else {
-              toast.error("Authentication is not for this page", {
-                position: "top-right",
-              });
-            }
+        const response = await axios.get(`${API_BASE_URL}/validate`, {
+          withCredentials: true,
+        });
+        console.log(response.data.user.type);
+        if (response.data.user.type === "Admin") {
+          setLoginUser(response.data.user.name);
+        } else {
+          toast.error("Authentication is not for this page", {
+            position: "top-right",
           });
-        // If the token is valid, do nothing
+        }
       } catch (error) {
         console.log(error.response.error);
         navigateTo("/");
@@ -57,17 +58,17 @@ function AdminPage() {
   };
 
   const logout = async () => {
-    await axios
-      .get(`${API_BASE_URL}/logout`, { withCredentials: true })
-      .then((response) => {
-        toast.success(response.data, {
-          position: "top-right",
-        });
-        navigateTo("/");
-      })
-      .catch((error) => {
-        console.log(error);
+    try {
+      const response = await axios.get(`${API_BASE_URL}/logout`, {
+        withCredentials: true,
       });
+      toast.success(response.data, {
+        position: "top-right",
+      });
+      navigateTo("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -81,23 +82,26 @@ function AdminPage() {
             onClick={handleDashboard}
             className={`${selectedTab === 1 ? "selected" : ""}`}
           >
-            <img src={dashboardIcon} />
+            <img src={dashboardIcon} alt="Dashboard" />
             <p>Dashboard</p>
           </button>
           <button
             onClick={handleStaff}
             className={`${selectedTab === 2 ? "selected" : ""}`}
           >
-            <img src={staffsIcon} />
+            <img src={staffsIcon} alt="Staff" />
             <p>Staff</p>
           </button>
         </div>
       </div>
       <div className="admin-body-div">
-        {selectedTab === 1 && <Dashboard />}
-        {selectedTab === 2 && <Staff />}
+        <Suspense fallback={<div>Loading...</div>}>
+          {selectedTab === 1 && <Dashboard />}
+          {selectedTab === 2 && <Staff />}
+        </Suspense>
       </div>
     </div>
   );
 }
+
 export default AdminPage;
