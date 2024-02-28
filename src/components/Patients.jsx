@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import searchIcon from "../assets/icons/search.svg";
 import "./patient.css";
 import ReactModal from "react-modal";
-import AddNewPatient from "./AddNewPatient";
 import axios from "axios";
 import editIcon from "../assets/icons/edit.svg";
 import { API_BASE_URL } from "./apibase";
 
 ReactModal.setAppElement("#root");
+
+// Lazy-load AddNewPatient component
+const AddNewPatient = React.lazy(() => import("./AddNewPatient"));
 
 function Patients() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -66,13 +68,15 @@ function Patients() {
         overlayClassName="Overlay"
         contentLabel="Form Popup"
       >
-        <AddNewPatient
-          isOpen={isFormOpen}
-          isClosed={closeFormPopup}
-          data={modalData}
-          editMode={editmode}
-          doneEdditing={handleDoneEditting}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <AddNewPatient
+            isOpen={isFormOpen}
+            isClosed={closeFormPopup}
+            data={modalData}
+            editMode={editmode}
+            doneEdditing={handleDoneEditting}
+          />
+        </Suspense>
       </ReactModal>
       <div className="mx-2 my-3">
         <div>

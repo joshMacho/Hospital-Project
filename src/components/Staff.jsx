@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import "./staff.css";
 import addIcon from "../assets/icons/plus.svg";
 import ReactModal from "react-modal";
-import AddStaffForm from "./AddStaffForm";
 import editIcon from "../assets/icons/edit.svg";
 import passwordIcon from "../assets/icons/key.svg";
-import UpdatePassword from "./UpdatePassword";
 import axios from "axios";
 import { API_BASE_URL } from "./apibase";
 
 ReactModal.setAppElement("#root");
+
+// Lazy-load AddStaffForm component
+const AddStaffForm = React.lazy(() => import("./AddStaffForm"));
+// Lazy-load UpdatePassword component
+const UpdatePassword = React.lazy(() => import("./UpdatePassword"));
 
 function Staff() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -86,13 +89,15 @@ function Staff() {
         overlayClassName="Overlay"
         contentLabel="Form Popup"
       >
-        <AddStaffForm
-          isOpen={isFormOpen}
-          isClosed={closeFormPopup}
-          data={editData}
-          editMode={editM}
-          doneEditing={handledDoneEditting}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <AddStaffForm
+            isOpen={isFormOpen}
+            isClosed={closeFormPopup}
+            data={editData}
+            editMode={editM}
+            doneEditing={handledDoneEditting}
+          />
+        </Suspense>
       </ReactModal>
 
       <ReactModal
@@ -102,11 +107,13 @@ function Staff() {
         overlayClassName="Overlay"
         contentLabel="Form Popup"
       >
-        <UpdatePassword
-          isOpen={isUpdatePasswordOpen}
-          isClosed={closeUpdatePassword}
-          empData={getSelectedEmployee}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <UpdatePassword
+            isOpen={isUpdatePasswordOpen}
+            isClosed={closeUpdatePassword}
+            empData={getSelectedEmployee}
+          />
+        </Suspense>
       </ReactModal>
       <div className="staff-d1">
         <div className="s-t">
@@ -117,7 +124,7 @@ function Staff() {
             <div className="but-d">
               <div className="add-div">
                 <button onClick={openFormPopup}>
-                  <img src={addIcon} />
+                  <img src={addIcon} alt="Add" />
                   <p>Add New</p>
                 </button>
               </div>
@@ -153,10 +160,10 @@ function Staff() {
                     <td className=" flex justify-center items-center">
                       <div className="actions">
                         <button onClick={() => openUpdatePassword(data)}>
-                          <img src={passwordIcon} />
+                          <img src={passwordIcon} alt="Password" />
                         </button>
                         <button onClick={() => openFormEdit(data)}>
-                          <img src={editIcon} />
+                          <img src={editIcon} alt="Edit" />
                         </button>
                       </div>
                     </td>
