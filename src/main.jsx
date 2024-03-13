@@ -10,7 +10,6 @@ import Consultations from "./components/Doctor/Consultations.jsx";
 import ConsultationsDetails from "./components/ConsultationDetails.jsx";
 import Nurse from "./components/Nurse.jsx";
 import { ToastContainer } from "react-toastify";
-import Enterance from "./components/Enterance.jsx";
 import AuthProvider from "./AuthProvider.jsx";
 
 //you can add your pages here for navigation
