@@ -47,7 +47,6 @@ function Login() {
         toast.success(`Welcome ${response.data.name}`, {
           position: "top-right",
         });
-        console.log("u are here ", response.data.type);
         navTree(response.data.type);
         setLoading(false);
       })

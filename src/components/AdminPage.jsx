@@ -37,7 +37,7 @@ function AdminPage() {
         }
       } catch (error) {
         console.log(error.response.error);
-        //navigateTo("/");
+        navigateTo("/");
       }
     };
 

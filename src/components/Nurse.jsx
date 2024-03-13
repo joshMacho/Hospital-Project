@@ -36,7 +36,7 @@ function Nurse() {
         }
       } catch (error) {
         console.log(error.response.error);
-        //navigateTo("/");
+        navigateTo("/");
       }
     };
 
