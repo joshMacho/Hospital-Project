@@ -5,6 +5,7 @@ import ReactModal from "react-modal";
 import axios from "axios";
 import editIcon from "../assets/icons/edit.svg";
 import { API_BASE_URL } from "./apibase";
+import "./patient.css";
 
 function Consultations() {
   const [consultations, setConsultations] = useState([]);
