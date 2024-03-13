@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { API_BASE_URL } from "./apibase.js";
+import "./addStaff.css";
 
 const consultationRoom = [
   "Consulting Room 1",

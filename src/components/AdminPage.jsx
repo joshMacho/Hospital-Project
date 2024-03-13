@@ -32,10 +32,12 @@ function AdminPage() {
           toast.error("Authentication is not for this page", {
             position: "top-right",
           });
+          console.log("no user: ", response.data.user.name);
+          navigateTo("/");
         }
       } catch (error) {
         console.log(error.response.error);
-        navigateTo("/");
+        //navigateTo("/");
       }
     };
 
