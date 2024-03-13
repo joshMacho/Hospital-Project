@@ -10,7 +10,7 @@ import Consultations from "./components/Doctor/Consultations.jsx";
 import ConsultationsDetails from "./components/ConsultationDetails.jsx";
 import Nurse from "./components/Nurse.jsx";
 import { ToastContainer } from "react-toastify";
-import AuthProvider from "./AuthProvider.jsx";
+import { AuthProvider } from "./UseAuth.jsx";
 
 //you can add your pages here for navigation
 const router = createBrowserRouter([
