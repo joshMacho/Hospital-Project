@@ -1,5 +1,5 @@
 import "./login.css";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import userIcon from "../assets/icons/user.svg";
 import passwordIcon from "../assets/icons/lock.svg";
@@ -8,6 +8,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "./apibase";
+import { lazy, Suspense } from "react";
+import ReactModal from "react-modal";
+
+const FirstUpdatePassword = React.lazy(() => import("./FirstUpdatePassword"));
+ReactModal.setAppElement("#root");
 
 function Login() {
   const navigateTo = useNavigate();
@@ -17,6 +22,9 @@ function Login() {
   });
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [firstLogon, setFirstLogon] = useState(false);
+  const [isUpdatePasswordOpen, setIsUpdatePasswordOpen] = useState(false);
+  const [getSelectedEmployee, setSelectedEmployee] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,15 +52,21 @@ function Login() {
         { withCredentials: true }
       )
       .then((response) => {
-        toast.success(`Welcome ${response.data.name}`, {
-          position: "top-right",
-        });
-        navTree(response.data.type);
-        setLoading(false);
+        const details = response.data;
+        if (details.firstSignIn) {
+          openUpdatePassword(details);
+        } else {
+          toast.success(`Welcome ${details.firstSignIn}`, {
+            position: "top-right",
+          });
+          setFirstLogon(details.firstSignIn);
+          navTree(details.name);
+          setLoading(false);
+        }
       })
       .catch((error) => {
         setError(true);
-        console.log("Error: ", error.response.data);
+        console.log("Error: ", error.message);
         setLoading(false);
       });
   };
@@ -73,8 +87,46 @@ function Login() {
     }
   };
 
+  const openUpdatePassword = (data) => {
+    setIsUpdatePasswordOpen(true);
+    setSelectedEmployee({
+      name: data.name,
+      id: data.id,
+    });
+  };
+
+  const closeUpdatePassword = () => {
+    setIsUpdatePasswordOpen(false);
+    setSelectedEmployee({
+      name: "",
+      id: "",
+    });
+    setLoginData({
+      userName: "",
+      password: "",
+    });
+    setLoading(false);
+    return;
+  };
+
   return (
     <div className="login-main-div">
+      <ReactModal
+        isOpen={isUpdatePasswordOpen}
+        onRequestClose={closeUpdatePassword}
+        className="Modal"
+        overlayClassName="Overlay"
+        contentLabel="Form Popup"
+      >
+        <Suspense fallback={<div>Loading...</div>}>
+          <FirstUpdatePassword
+            isOpen={isUpdatePasswordOpen}
+            isClosed={closeUpdatePassword}
+            empData={getSelectedEmployee}
+          />
+        </Suspense>
+      </ReactModal>
+
       <div className="f-div div-props ">
         <div className="s-tit">
           <p>M-H-S</p>

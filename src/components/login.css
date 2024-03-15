@@ -33,7 +33,8 @@
     justify-center
     items-center
     h-[100vh]
-    bg-gray-700;
+    bg-gray-700
+    relative;
   }
   .div-props {
     @apply h-[380px]

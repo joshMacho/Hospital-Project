@@ -7,7 +7,7 @@ import axios from "axios";
 import { API_BASE_URL } from "./apibase";
 import "./addStaff.css";
 
-function UpdatePassword({ isOpen, isClosed, empData }) {
+function FirstUpdatePassword({ isOpen, isClosed, empData }) {
   const [loading, setLoading] = useState(false);
   const [formPassword, setFormPassword] = useState({
     password: "",
@@ -26,7 +26,7 @@ function UpdatePassword({ isOpen, isClosed, empData }) {
       axios
         .put(`${API_BASE_URL}/updatePassword/${empData.id}`, {
           password: formPassword.password,
-          firstSignIn: true,
+          firstSignIn: false,
         })
         .then((response) => {
           toast.success(response.data.message, {
@@ -53,7 +53,10 @@ function UpdatePassword({ isOpen, isClosed, empData }) {
           .
         </div>
         <div className="head-div">
-          <p className="mb-5">{empData.id}</p>
+          <p className="mb-5">
+            Update your password for first time logon or admin reset{" "}
+            {empData.name}
+          </p>
         </div>
         <div className="all-inputs mb-5">
           <div className="inner-input-div">
@@ -91,4 +94,4 @@ function UpdatePassword({ isOpen, isClosed, empData }) {
     </div>
   );
 }
-export default UpdatePassword;
+export default FirstUpdatePassword;
