@@ -30,10 +30,7 @@ function Login() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLoginData((logins) => ({ ...logins, [name]: value }));
-    //send the data to backend using axios
-    //eg.
     setError(false);
-
     // axios
     //   .post("http://localhost:3001/api/register", { name, value })
     //   .then((res) => console.log("response from the server"))
@@ -44,7 +41,6 @@ function Login() {
     e.preventDefault();
     setLoading(true);
     try {
-      //await login(loginData.userName, loginData.password);
       await axios
         .post(`${API_BASE_URL}/login`, {
           username: loginData.userName,
@@ -55,7 +51,6 @@ function Login() {
           if (user.firstSignIn) {
             openUpdatePassword(user);
           } else {
-            console.log(user);
             toast.success(`Welcome ${user.name}`, {
               position: "top-right",
             });
@@ -68,6 +63,9 @@ function Login() {
       setError(true);
       console.log("Error: ", error);
       setLoading(false);
+      toast.error(`${error.message}`, {
+        position: "top-right",
+      });
     }
   };
 

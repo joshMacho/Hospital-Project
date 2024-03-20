@@ -53,7 +53,7 @@ function UpdatePassword({ isOpen, isClosed, empData }) {
           .
         </div>
         <div className="head-div">
-          <p className="mb-5">{empData.id}</p>
+          <p className="mb-5">{empData.name}</p>
         </div>
         <div className="all-inputs mb-5">
           <div className="inner-input-div">
