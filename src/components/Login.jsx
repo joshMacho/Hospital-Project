@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "./apibase";
 import { lazy, Suspense } from "react";
 import ReactModal from "react-modal";
+import { useAuth } from "../UseAuth";
 
 const FirstUpdatePassword = React.lazy(() => import("./FirstUpdatePassword"));
 ReactModal.setAppElement("#root");
@@ -22,7 +23,7 @@ function Login() {
   });
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [firstLogon, setFirstLogon] = useState(false);
+  //const [firstLogon, setFirstLogon] = useState(false);
   const [isUpdatePasswordOpen, setIsUpdatePasswordOpen] = useState(false);
   const [getSelectedEmployee, setSelectedEmployee] = useState({});
 
@@ -42,33 +43,32 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await axios
-      .post(
-        `${API_BASE_URL}/login`,
-        {
+    try {
+      //await login(loginData.userName, loginData.password);
+      await axios
+        .post(`${API_BASE_URL}/login`, {
           username: loginData.userName,
           password: loginData.password,
-        },
-        { withCredentials: true }
-      )
-      .then((response) => {
-        const details = response.data;
-        if (details.firstSignIn) {
-          openUpdatePassword(details);
-        } else {
-          toast.success(`Welcome ${details.firstSignIn}`, {
-            position: "top-right",
-          });
-          setFirstLogon(details.firstSignIn);
-          navTree(details.name);
-          setLoading(false);
-        }
-      })
-      .catch((error) => {
-        setError(true);
-        console.log("Error: ", error.message);
-        setLoading(false);
-      });
+        })
+        .then((response) => {
+          const user = response.data;
+          if (user.firstSignIn) {
+            openUpdatePassword(user);
+          } else {
+            console.log(user);
+            toast.success(`Welcome ${user.name}`, {
+              position: "top-right",
+            });
+            localStorage.setItem("currentuser", JSON.stringify(user));
+            navTree(user.type);
+            setLoading(false);
+          }
+        });
+    } catch (error) {
+      setError(true);
+      console.log("Error: ", error);
+      setLoading(false);
+    }
   };
 
   const navTree = (path) => {

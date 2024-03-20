@@ -90,38 +90,42 @@ function Consultations() {
         </div>
       </div>
       <div className="n-table-div">
-        <table className="border border-black mx-1">
-          <thead>
-            <tr>
-              <th>Patient Name</th>
-              <th>Doctor Name</th>
-              <th>Consultation</th>
-              <th>Status</th>
-              <th>Date</th>
-              <th>.</th>
-            </tr>
-          </thead>
-          <tbody>
-            {consultations.map((consult, index) => (
-              <tr key={index}>
-                <td>{consult.patient_name}</td>
-                <td>{consult.doctor_assigned}</td>
-                <td>{consult.consultation}</td>
-                <td>{consult.status}</td>
-                <td>{new Date(consult.date).toISOString().split("T")[0]}</td>
-                <td>
-                  <button
-                    onClick={() => openModalWithData(consult)}
-                    disabled={true}
-                    className="disabled:opacity-30"
-                  >
-                    <img src={editIcon} alt="" />
-                  </button>
-                </td>
+        {consultations.length > 0 ? (
+          <table className="border border-black mx-1">
+            <thead>
+              <tr>
+                <th>Patient Name</th>
+                <th>Doctor Name</th>
+                <th>Consultation</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>.</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {consultations.map((consult, index) => (
+                <tr key={index}>
+                  <td>{consult.patient_name}</td>
+                  <td>{consult.doctor_assigned}</td>
+                  <td>{consult.consultation}</td>
+                  <td>{consult.status}</td>
+                  <td>{new Date(consult.date).toISOString().split("T")[0]}</td>
+                  <td>
+                    <button
+                      onClick={() => openModalWithData(consult)}
+                      disabled={true} // Note: Consider enabling this if you want to allow editing.
+                      className="disabled:opacity-30"
+                    >
+                      <img src={editIcon} alt="Edit" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="text-center p-5">No consultations found.</div>
+        )}
       </div>
     </div>
   );

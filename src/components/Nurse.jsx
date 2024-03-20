@@ -20,26 +20,6 @@ function Nurse() {
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    const checkAuthentication = async () => {
-      try {
-        // Make a request to a backend endpoint to validate the token
-        const response = await axios.get(`${API_BASE_URL}/validate`, {
-          withCredentials: true,
-        });
-        if (response.data.user.type === "Nurse") {
-          setLoginUser(response.data.user.name);
-        } else {
-          toast.error("Authentication is not for this page", {
-            position: "top-right",
-          });
-          navigateTo("/");
-        }
-      } catch (error) {
-        console.log(error.response.error);
-        navigateTo("/");
-      }
-    };
-
     checkAuthentication();
   }, []);
 
@@ -53,28 +33,29 @@ function Nurse() {
   };
 
   const getUser = () => {
-    return loginUser;
+    const you = localStorage.getItem("currentuser");
+    return you.name;
   };
 
-  const logout = async () => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/logout`, {
-        withCredentials: true,
-      });
-      toast.success(response.data, {
-        position: "top-right",
-      });
-      navigateTo("/");
-    } catch (error) {
-      console.log(error);
+  const checkAuthentication = async () => {
+    const you = localStorage.getItem("currentuser");
+    if (!you) {
+      navigateTo("/login");
+    } else {
+      setLoginUser(you.name);
     }
+  };
+
+  const logoutUser = async () => {
+    localStorage.removeItem("currentuser");
+    navigateTo("/login");
   };
 
   return (
     <div className="n-main-div">
       <div className="n-top-div">
         <div className="home-div">
-          <Logout getUser={getUser()} logout={() => logout()} />
+          <Logout getUser={getUser()} logout={() => logoutUser()} />
         </div>
         <div className="t-b-div">
           <button
