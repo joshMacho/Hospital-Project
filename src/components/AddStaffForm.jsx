@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { API_BASE_URL } from "./apibase.js";
+import closeIcon from "../assets/icons/close.svg";
 
 const staffType = [
   "Admin",
@@ -65,7 +66,6 @@ function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (userDetails.password === rePassword) {
       setLoading(true);
       await axios
@@ -124,10 +124,10 @@ function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
             onSubmit={editState ? updateStaffDetails : handleSubmit}
           >
             <div
-              className="cursor-pointer p-1 border border-black rounded-md absolute top-2 right-2 bg-slate-500 text-white"
+              className="cursor-pointer p-1 rounded-full absolute -top-4 -right-4 bg-slate-400"
               onClick={handleClose}
             >
-              Close
+              <img src={closeIcon} />
             </div>
             <div className="head-div">
               <p>{editMode ? "Update Staff" : "Add New Staff"}</p>
@@ -148,13 +148,13 @@ function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
               <div className="inner-input-div">
                 <label>Type</label>
                 <div className="type-list">
-                  {types.map((staffType, index) => (
+                  {staffType.map((type, index) => (
                     <div
                       key={index}
                       className={`type ${activeType === index ? "active" : ""}`}
                       onClick={() => handleTypeClick(index)}
                     >
-                      {staffType.name}
+                      {type}
 
                       {activeType === index && <div className="dot"></div>}
                     </div>

@@ -88,4 +88,18 @@
     @apply flex
     w-full;
   }
+  .who-div {
+    @apply flex
+    justify-end
+    items-center;
+  }
+  .user-div {
+    @apply flex
+    justify-center
+    items-center
+    h-[30px]
+    w-[30px]
+    shadow-lg
+    mt-2;
+  }
 }

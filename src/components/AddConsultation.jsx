@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { API_BASE_URL } from "./apibase.js";
 import "./addStaff.css";
+import closeIcon from "../assets/icons/close.svg";
 
 const consultationRoom = [
   "Consulting Room 1",
@@ -176,10 +177,10 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
               <p className="font-ekuzoaBold">Add Consultation</p>
             </div>
             <div
-              className="p-1 border cursor-pointer border-black rounded-md absolute top-2 right-2 bg-slate-500 text-white"
+              className="cursor-pointer p-1 rounded-full absolute -top-4 -right-4 bg-slate-400"
               onClick={isClosed}
             >
-              Close
+              <img src={closeIcon} />
             </div>
             <div className="flex flex-col justify-center items-center mt-5  ">
               <div className="flex flex-col justify-start w-[300px] mb-2">

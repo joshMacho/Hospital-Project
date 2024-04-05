@@ -4,10 +4,7 @@ import patientIcon from "../assets/icons/users.svg";
 import "./nurse.css";
 import { useNavigate } from "react-router";
 import Logout from "./Logout";
-import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { API_BASE_URL } from "./apibase";
+import nurseIcon from "../assets/images/nurse.png";
 
 // Lazy-load Consultations component
 const Consultations = React.lazy(() => import("./Consultations"));
@@ -54,8 +51,13 @@ function Nurse() {
   return (
     <div className="n-main-div">
       <div className="n-top-div">
-        <div className="home-div">
-          <Logout getUser={getUser()} logout={() => logoutUser()} />
+        <div className="who-div">
+          <div className="user-div">
+            <img src={nurseIcon} />
+          </div>
+          <div className="home-div">
+            <Logout getUser={getUser()} logout={() => logoutUser()} />
+          </div>
         </div>
         <div className="t-b-div">
           <button

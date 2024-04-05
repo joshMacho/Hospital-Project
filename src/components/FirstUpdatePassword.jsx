@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { API_BASE_URL } from "./apibase";
 import "./addStaff.css";
+import closeIcon from "../assets/icons/close.svg";
 
 function FirstUpdatePassword({ isOpen, isClosed, empData }) {
   const [loading, setLoading] = useState(false);
@@ -47,10 +48,10 @@ function FirstUpdatePassword({ isOpen, isClosed, empData }) {
     <div className="popup-overlay">
       <form className="pass-form-div" onSubmit={handleSubmit}>
         <div
-          className="border w-10 border-black rounded-md absolute -top-4 -right-7 bg-slate-500 text-white"
+          className="cursor-pointer p-1 rounded-full absolute -top-4 -right-4 bg-slate-500 "
           onClick={isClosed}
         >
-          .
+          <img src={closeIcon} />
         </div>
         <div className="head-div">
           <p className="mb-5">

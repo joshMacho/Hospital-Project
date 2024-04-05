@@ -117,7 +117,7 @@ function Staff() {
       </ReactModal>
       <div className="staff-d1">
         <div className="s-t">
-          <p>Staffs</p>
+          <p>Staff</p>
         </div>
         <div className="s-table-div">
           <div className="search-div">

@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Logout from "./Logout";
 import { API_BASE_URL } from "./apibase";
 import { useAuth } from "../UseAuth";
+import adminIcon from "../assets/images/admin.png";
 
 // Lazy-load Dashboard component
 const Dashboard = React.lazy(() => import("./Dashboard"));
@@ -56,8 +57,13 @@ function AdminPage() {
   return (
     <div className="admin-main-div">
       <div className="top-bar-div">
-        <div className="c-div">
-          <Logout getUser={getUser()} logout={() => logoutUser()} />
+        <div className="who-div">
+          <div className="user-div">
+            <img src={adminIcon} />
+          </div>
+          <div className="c-div">
+            <Logout getUser={getUser()} logout={() => logoutUser()} />
+          </div>
         </div>
         <div className="nav-buttons-div">
           <button
