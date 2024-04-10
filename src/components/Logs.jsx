@@ -40,7 +40,7 @@ function Logs() {
               <thead>
                 <tr>
                   <th>Action</th>
-                  <th>On Patient</th>
+                  <th>On</th>
                   <th className="hidden lg:table-cell">Officer</th>
                   <th className="hidden md:table-cell">On Table</th>
                   <th className="hidden lg:table-cell">Date</th>

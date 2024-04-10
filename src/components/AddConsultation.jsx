@@ -22,6 +22,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
     patient: "",
     patient_id: "",
     doctor: "",
+    doc_id: "",
     consultation_room: "",
     pulse: "",
     temperature: "",
@@ -64,6 +65,16 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setConsultation((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleDocChange = (e) => {
+    const { name, value } = e.target;
+    const [docName, docId] = value.split(",");
+    setConsultation((prevData) => ({
+      ...prevData,
+      [name]: docName,
+      doc_id: docId,
+    }));
   };
 
   const handlePatientSelect = (e) => {
@@ -128,7 +139,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
 
         visitDate: getDate(),
       })
-      .then((res) => console.log(res))
+      .then((res) => console.log())
       .catch((e) => console.log(e));
   };
 
@@ -269,16 +280,20 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
                 </label>
                 <select
                   id="doctor"
-                  onSelect={handleInputChange}
+                  onSelect={handleDocChange}
                   required
                   className="bg-gray-300"
                   name="doctor"
-                  value={consultation.doctor}
-                  onChange={handleInputChange}
+                  value={
+                    consultation.doc_id
+                      ? `${consultation.doctor},${consultation.doc_id}`
+                      : ""
+                  }
+                  onChange={handleDocChange}
                 >
                   <option value=""></option>
                   {doctorsInfo.map((item) => (
-                    <option key={item.id} value={item.name}>
+                    <option key={item.id} value={`${item.name},${item.id}`}>
                       {item.name}
                     </option>
                   ))}

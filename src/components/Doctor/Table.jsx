@@ -41,8 +41,11 @@ const Table = (props) => {
     []
   );
 
+  const curr = JSON.parse(localStorage.getItem("currentuser"));
+
   useEffect(() => {
     fetchData();
+    console.log(curr.id);
   }, []);
 
   // const dataFromData = [
@@ -58,9 +61,10 @@ const Table = (props) => {
 
   const [dataFromData, setDataFromData] = useState([]);
   const [dataToUseForTableM, setDataToUseForTableM] = useState([]);
+
   const fetchData = async () => {
     await axios
-      .get(`${API_BASE_URL}/getconsults`)
+      .get(`${API_BASE_URL}/getdocConsults/${curr.id}`)
       .then((response) => {
         setDataFromData(response.data);
 
