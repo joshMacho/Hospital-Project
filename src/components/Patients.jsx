@@ -1,10 +1,14 @@
 import React, { useEffect, useState, Suspense } from "react";
 import searchIcon from "../assets/icons/search.svg";
+import deleteIcon from "../assets/icons/delete.svg";
 import "./patient.css";
 import ReactModal from "react-modal";
 import axios from "axios";
 import editIcon from "../assets/icons/edit.svg";
 import { API_BASE_URL } from "./apibase";
+import { useGlobal } from "../GlobalContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 ReactModal.setAppElement("#root");
 
@@ -12,22 +16,23 @@ ReactModal.setAppElement("#root");
 const AddNewPatient = React.lazy(() => import("./AddNewPatient"));
 
 function Patients() {
+  const curr = JSON.parse(localStorage.getItem("currentuser"));
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [patientData, setPatientData] = useState([]);
+  const { patientData, setPatientData } = useGlobal();
   const [editmode, setEditmode] = useState(false);
   const [modalData, setModalData] = useState(null);
-  const [reload, setReload] = useState(false);
+  const { reload, setReload } = useGlobal();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
-  useEffect(() => {
-    if (reload) {
-      fetchData();
-    }
-    setReload(false);
-  }, [reload]);
+  // useEffect(() => {
+  //   if (reload) {
+  //     fetchData();
+  //   }
+  //   setReload(false);
+  // }, [reload]);
 
   const fetchData = async () => {
     await axios
@@ -57,6 +62,40 @@ function Patients() {
 
   const handleDoneEditting = (isDone) => {
     setEditmode(isDone);
+  };
+
+  const deletePat = async (e, data) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const isConfirmed = window.confirm(
+      `Are you sure you want to delete user ${data.name}`
+    );
+    if (!isConfirmed) {
+      return;
+    }
+    await axios
+      .delete(`${API_BASE_URL}/deletePat/${data.id}`)
+      .then((response) => {
+        toast.success(response.data.message);
+        makeLog(data);
+        setReload(true);
+      })
+      .catch((error) =>
+        toast.error(
+          "Error deleting\nNote: you cannot delete patient with a consultation"
+        )
+      );
+  };
+
+  const makeLog = async (data) => {
+    await axios
+      .post(`${API_BASE_URL}/logs`, {
+        action_event: "DELETED",
+        affected: data.name,
+        officer: curr.name,
+        table_action: "Employees",
+      })
+      .catch((e) => console.log(e));
   };
 
   return (
@@ -131,6 +170,9 @@ function Patients() {
                   <td>
                     <button onClick={() => openModalWithData(data)}>
                       <img src={editIcon} alt="Edit" />
+                    </button>
+                    <button onClick={(e) => deletePat(e, data)}>
+                      <img src={deleteIcon} alt="delete" />
                     </button>
                   </td>
                 </tr>

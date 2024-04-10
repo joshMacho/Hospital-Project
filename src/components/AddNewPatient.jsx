@@ -11,6 +11,7 @@ const gender = ["Male", "Female"];
 const marriage = ["Single", "Married", "Divorced", "Widow"];
 
 function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
+  const officer = JSON.parse(localStorage.getItem("currentuser"));
   const [activeGender, setActiveGender] = useState(0);
   const [mstatus, setMStatus] = useState(0);
   const [refresh, setRefresh] = useState(false);
@@ -25,6 +26,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
     next_of_kin: "",
     marital_status: marriage[mstatus],
     nID: "",
+    officer: officer.name,
   });
   const [loading, setLoading] = useState(false);
 
@@ -103,6 +105,7 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
           toast.success(response.data.message, {
             position: "top-right",
           });
+          makeLog();
           setFormEdit(false);
           clearFields();
           doneEdditing(false);
@@ -114,6 +117,17 @@ function AddNewPatient({ isOpen, isClosed, data, editMode, doneEdditing }) {
         setLoading(true);
         console.log(error);
       });
+  };
+
+  const makeLog = async () => {
+    await axios
+      .post(`${API_BASE_URL}/logs`, {
+        action_event: "UPDATED",
+        affected: patientDetails.name,
+        officer: localStorage.getItem("currentuser").name,
+        table_action: "PATIENTS",
+      })
+      .catch((e) => console.log(e));
   };
 
   const handleClose = () => {

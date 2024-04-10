@@ -43,7 +43,6 @@ function FirstUpdatePassword({ isOpen, isClosed, empData }) {
       setLoading(false);
     }
   };
-  console.log(formPassword.password);
   return (
     <div className="popup-overlay">
       <form className="pass-form-div" onSubmit={handleSubmit}>

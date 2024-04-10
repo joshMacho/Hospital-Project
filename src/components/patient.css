@@ -46,6 +46,9 @@
     shadow-sm
     shadow-slate-600;
   }
+  .n-table-div table thead tr {
+    @apply bg-slate-500;
+  }
   .n-table-div table tbody tr {
     @apply text-center
     font-ekuzoaLight;

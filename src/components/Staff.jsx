@@ -3,9 +3,13 @@ import "./staff.css";
 import addIcon from "../assets/icons/plus.svg";
 import ReactModal from "react-modal";
 import editIcon from "../assets/icons/edit.svg";
+import deleteIcon from "../assets/icons/delete.svg";
 import passwordIcon from "../assets/icons/key.svg";
+import { useGlobal } from "../GlobalContext";
 import axios from "axios";
 import { API_BASE_URL } from "./apibase";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 ReactModal.setAppElement("#root");
 
@@ -15,35 +19,15 @@ const AddStaffForm = React.lazy(() => import("./AddStaffForm"));
 const UpdatePassword = React.lazy(() => import("./UpdatePassword"));
 
 function Staff() {
+  const curr = JSON.parse(localStorage.getItem("currentuser"));
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isUpdatePasswordOpen, setIsUpdatePasswordOpen] = useState(false);
-  const [empData, setEmpData] = useState([]);
+  const { empData, setEmpData } = useGlobal();
   const [getSelectedEmployee, setSelectedEmployee] = useState({});
-  const [reload, setReload] = useState(false);
+  const { sreload, setsReload } = useGlobal();
   const [editData, setEditData] = useState({});
   const [editM, setEditM] = useState(false);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (reload) {
-      fetchData();
-    }
-    setReload(false);
-  }, [reload]);
-
-  const fetchData = async () => {
-    await axios
-      .get(`${API_BASE_URL}/Employees`)
-      .then((response) => {
-        setEmpData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
   const openFormPopup = () => {
     setIsFormOpen(true);
   };
@@ -70,7 +54,7 @@ function Staff() {
 
   const closeFormPopup = () => {
     setIsFormOpen(false);
-    setReload(true);
+    setsReload(true);
   };
   const closeUpdatePassword = () => {
     setIsUpdatePasswordOpen(false);
@@ -78,6 +62,35 @@ function Staff() {
 
   const handledDoneEditting = (isDone) => {
     setEditM(isDone);
+  };
+
+  const deleteEmp = async (e, data) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const isConfirmed = window.confirm(
+      `Are you sure you want to delete user ${data.name}`
+    );
+    if (!isConfirmed) {
+      return;
+    }
+    await axios
+      .delete(`${API_BASE_URL}/deleteEmp/${data.id}`)
+      .then((response) => {
+        toast.success(response.data.message);
+        makeLog(data);
+        setsReload(true);
+      });
+  };
+
+  const makeLog = async (data) => {
+    await axios
+      .post(`${API_BASE_URL}/logs`, {
+        action_event: "DELETED",
+        affected: data.name,
+        officer: curr.name,
+        table_action: "Employees",
+      })
+      .catch((e) => console.log(e));
   };
 
   return (
@@ -164,6 +177,9 @@ function Staff() {
                         </button>
                         <button onClick={() => openFormEdit(data)}>
                           <img src={editIcon} alt="Edit" />
+                        </button>
+                        <button onClick={(e) => deleteEmp(e, data)}>
+                          <img src={deleteIcon} alt="Edit" />
                         </button>
                       </div>
                     </td>

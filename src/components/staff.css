@@ -95,13 +95,17 @@
     w-full
     min-h-screen
     max-h-screen
-    overflow-auto;
+    overflow-auto
+    relative;
   }
   .t-table-div table {
     @apply mx-2
     my-3
     shadow-sm
     shadow-slate-600;
+  }
+  .t-table-div table thead tr {
+    @apply bg-slate-500;
   }
   .t-table-div table tbody tr {
     @apply text-center

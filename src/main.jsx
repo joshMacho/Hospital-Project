@@ -10,7 +10,7 @@ import Consultations from "./components/Doctor/Consultations.jsx";
 import ConsultationsDetails from "./components/ConsultationDetails.jsx";
 import Nurse from "./components/Nurse.jsx";
 import { ToastContainer } from "react-toastify";
-import { AuthProvider } from "./UseAuth.jsx";
+import { GlobalProvider } from "./GlobalContext.jsx";
 
 //you can add your pages here for navigation
 const router = createBrowserRouter([
@@ -46,7 +46,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    <ToastContainer />
+    <GlobalProvider>
+      <RouterProvider router={router} />
+      <ToastContainer position="top-right" />
+    </GlobalProvider>
   </React.StrictMode>
 );

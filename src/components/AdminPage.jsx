@@ -10,6 +10,7 @@ import Logout from "./Logout";
 import { API_BASE_URL } from "./apibase";
 import { useAuth } from "../UseAuth";
 import adminIcon from "../assets/images/admin.png";
+import Logs from "./Logs";
 
 // Lazy-load Dashboard component
 const Dashboard = React.lazy(() => import("./Dashboard"));
@@ -43,6 +44,11 @@ function AdminPage() {
   const handleStaff = (e) => {
     e.preventDefault();
     setSelectedTab(2);
+  };
+
+  const handleLogs = (e) => {
+    e.preventDefault();
+    setSelectedTab(3);
   };
 
   const getUser = () => {
@@ -80,12 +86,19 @@ function AdminPage() {
             <img src={staffsIcon} alt="Staff" />
             <p>Staff</p>
           </button>
+          <button
+            onClick={handleLogs}
+            className={`${selectedTab === 3 ? "selected" : ""}`}
+          >
+            <p>Sys.Logs</p>
+          </button>
         </div>
       </div>
       <div className="admin-body-div">
         <Suspense fallback={<div>Loading...</div>}>
           {selectedTab === 1 && <Dashboard />}
           {selectedTab === 2 && <Staff />}
+          {selectedTab === 3 && <Logs />}
         </Suspense>
       </div>
     </div>

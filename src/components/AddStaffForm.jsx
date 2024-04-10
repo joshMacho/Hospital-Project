@@ -17,6 +17,7 @@ const staffType = [
 ];
 
 function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
+  const curr = JSON.parse(localStorage.getItem("currentuser"));
   const [types, setTypes] = useState([]);
   const [editState, setEditState] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,7 @@ function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
     email: "",
     contact: "",
     password: "",
+    addedby: curr.name,
   });
   useEffect(() => {
     const fetchData = async () => {
@@ -98,6 +100,7 @@ function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
         toast.success(response.data.message, {
           position: "top-right",
         });
+        makeLog();
         setLoading(false);
         isClosed();
         doneEditing(false);
@@ -108,6 +111,17 @@ function AddStaffForm({ isOpen, isClosed, data, editMode, doneEditing }) {
         });
         setLoading(false);
       });
+  };
+
+  const makeLog = async () => {
+    await axios
+      .post(`${API_BASE_URL}/logs`, {
+        action_event: "UPDATED",
+        affected: userDetails.name,
+        officer: curr.name,
+        table_action: "EMPLOYEES",
+      })
+      .catch((e) => console.log(e));
   };
 
   const handleClose = () => {
