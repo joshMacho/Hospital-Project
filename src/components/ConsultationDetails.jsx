@@ -27,6 +27,8 @@ const ConsultationsDetails = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const { patientID } = useParams();
   const [patientConsult, setPatientConsult] = useState({});
+  const [diagnostics, setDiagnostics] = useState("");
+  const [alldiag, setAlldiag] = useState([]);
 
   const check = async () => {
     await axios
@@ -46,32 +48,46 @@ const ConsultationsDetails = () => {
   };
 
   useEffect(() => {
-    const getConsultationDetails = async () => {
-      try {
-        const response = await axios.get(
-          `${API_BASE_URL}/getconsult/${patientID}`
-        );
-        setPatientConsult(response.data);
-        reset({
-          name: response.data.patient_name,
-          status: response.data.status,
-          dateofvisit: new Date(response.data.date).toISOString().split("T")[0],
-          weight: response.data.weight,
-          temperature: response.data.temperature,
-          pulse: response.data.pulse,
-          heartrate: response.data.heart_rate,
-          notes: "All is well",
-          diagnose: "Malaria",
-          medication: "Para",
-          lab: "Do Malaria test",
-        });
-      } catch (error) {
-        console.error("Error fetching consultation details:", error);
-      }
-    };
-
     getConsultationDetails();
+    getDiagnostics();
   }, []);
+
+  const getConsultationDetails = async () => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/getconsult/${patientID}`
+      );
+      setPatientConsult(response.data);
+      reset({
+        name: response.data.patient_name,
+        status: response.data.status,
+        dateofvisit: new Date(response.data.date).toISOString().split("T")[0],
+        weight: response.data.weight,
+        temperature: response.data.temperature,
+        pulse: response.data.pulse,
+        heartrate: response.data.heart_rate,
+        notes: "All is well",
+        diagnose: diagnostics,
+        medication: "Para",
+        lab: "Do Malaria test",
+      });
+    } catch (error) {
+      console.error("Error fetching consultation details:", error);
+    }
+  };
+
+  const getDiagnostics = async () => {
+    await axios
+      .get(`${API_BASE_URL}/getDiagnostics`)
+      .then((response) => {
+        setAlldiag(response.data);
+      })
+      .catch((error) => console.log | error);
+  };
+
+  const diagSelect = (e) => {
+    setDiagnostics(e.target.value);
+  };
 
   return (
     <>
@@ -200,14 +216,24 @@ const ConsultationsDetails = () => {
           <div className="flex  flex-grow">
             <div className="flex-1 flex-col  py-2 ">
               <label>Diagnose</label>
-              <textarea
+              <select
                 className="focus:outline-none rounded-sm focus:border-blue-500 focus:ring-2 focus:ring-orange-500 text-black-500 mt-2 p-2  w-full bg-gray-100"
                 {...register("diagnose", {
                   required: "This is Required",
                 })}
                 placeholder="Diagnose"
                 type="text"
-              />
+                value={diagnostics}
+                onSelect={diagSelect}
+                onChange={diagSelect}
+              >
+                <option value=""></option>
+                {alldiag.map((item, index) => (
+                  <option key={index} value={item.name}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
               {errors.diagnose && (
                 <small style={{ color: "red" }}>
                   {errors.diagnose.message}
