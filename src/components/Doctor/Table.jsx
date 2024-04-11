@@ -81,7 +81,6 @@ const Table = (props) => {
                 <a
                   className="bg-green-600  text-white rounded-md p-2 bg-blend-color-dodge"
                   href={`consultationdetails/${val.id}`}
-                  target="_blank"
                 >
                   Work On Patient
                 </a>
