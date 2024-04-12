@@ -33,8 +33,11 @@ function AdminPage() {
   };
 
   const checkAuthentication = async () => {
-    const you = localStorage.getItem("currentuser");
+    const you = JSON.parse(localStorage.getItem("currentuser"));
     if (!you) {
+      navigateTo("/login");
+    }
+    if (you.type !== "Admin") {
       navigateTo("/login");
     } else {
       setLoginUser(you.name);

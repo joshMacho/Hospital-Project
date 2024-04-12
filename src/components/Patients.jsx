@@ -126,9 +126,9 @@ function Patients() {
         <div>
           <button
             onClick={openFormPopup}
-            className="flex justify-center items-center border border-black "
+            className="flex justify-center items-center border border-black bg-slate-500 rounded-md hover:shadow-md hover:shadow-slate-500 hover:text-white"
           >
-            <p className="p-1">Add Patient</p>
+            <p className="px-2 py-1">Add Patient</p>
           </button>
         </div>
         <div className="border border-black flex justify-center items-center space-x-2 rounded-md">
@@ -168,12 +168,14 @@ function Patients() {
                   <td>{data.marital_status}</td>
                   <td>{data.next_of_kin}</td>
                   <td>
-                    <button onClick={() => openModalWithData(data)}>
-                      <img src={editIcon} alt="Edit" />
-                    </button>
-                    <button onClick={(e) => deletePat(e, data)}>
-                      <img src={deleteIcon} alt="delete" />
-                    </button>
+                    <div className="actions">
+                      <button onClick={() => openModalWithData(data)}>
+                        <img src={editIcon} className="actimg" alt="Edit" />
+                      </button>
+                      <button onClick={(e) => deletePat(e, data)}>
+                        <img src={deleteIcon} className="actimg" alt="delete" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

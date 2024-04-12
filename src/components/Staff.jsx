@@ -160,8 +160,8 @@ function Staff() {
                 </tr>
               </thead>
               <tbody>
-                {empData.map((data, index) => (
-                  <tr key={index}>
+                {empData.map((data) => (
+                  <tr key={data.id}>
                     <td>{data.name}</td>
                     <td>{data.type}</td>
                     <td className="hidden lg:table-cell">{data.username}</td>
@@ -173,13 +173,17 @@ function Staff() {
                     <td className=" flex justify-center items-center">
                       <div className="actions">
                         <button onClick={() => openUpdatePassword(data)}>
-                          <img src={passwordIcon} alt="Password" />
+                          <img
+                            src={passwordIcon}
+                            alt="Password"
+                            className="actimg"
+                          />
                         </button>
                         <button onClick={() => openFormEdit(data)}>
-                          <img src={editIcon} alt="Edit" />
+                          <img src={editIcon} alt="Edit" className="actimg" />
                         </button>
                         <button onClick={(e) => deleteEmp(e, data)}>
-                          <img src={deleteIcon} alt="Edit" />
+                          <img src={deleteIcon} alt="Edit" className="actimg" />
                         </button>
                       </div>
                     </td>

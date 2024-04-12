@@ -142,10 +142,11 @@
     md:block;
   }
   .actions button {
-    @apply shadow-md
-    shadow-slate-700;
   }
   .actions button:hover {
-    @apply bg-slate-500;
+    @apply bg-slate-300 shadow-md shadow-slate-500;
+  }
+  .actimg {
+    @apply w-[15px] h-[15px];
   }
 }

@@ -32,14 +32,15 @@
     @apply flex items-center justify-center relative;
   }
   .logout-div {
-    @apply flex justify-center items-center shadow-sm shadow-black;
+    @apply flex justify-center items-center shadow-sm shadow-black rounded-md;
   }
   .logout-action {
     @apply flex items-center justify-center text-gray-700 
     hover:cursor-pointer
-    hover:bg-gray-400;
+    hover:bg-gray-400
+    hover:rounded-md;
   }
   .logout-action p {
-    @apply mr-2 p-1 text-gray-700 font-ekuzoaBold;
+    @apply mr-2 p-1 text-gray-700 font-ekuzoaMedium text-[16px];
   }
 }

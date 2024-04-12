@@ -30,13 +30,16 @@ function Nurse() {
   };
 
   const getUser = () => {
-    const you = localStorage.getItem("currentuser");
+    const you = JSON.parse(localStorage.getItem("currentuser"));
     return you.name;
   };
 
   const checkAuthentication = async () => {
-    const you = localStorage.getItem("currentuser");
+    const you = JSON.parse(localStorage.getItem("currentuser"));
     if (!you) {
+      navigateTo("/login");
+    }
+    if (you.type !== "Nurse") {
       navigateTo("/login");
     } else {
       setLoginUser(you.name);
