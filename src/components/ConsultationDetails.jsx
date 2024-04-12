@@ -49,7 +49,7 @@ const ConsultationsDetails = () => {
 
   useEffect(() => {
     getConsultationDetails();
-    getDiagnostics();
+    //getDiagnostics();
   }, []);
 
   const getConsultationDetails = async () => {
