@@ -32,7 +32,7 @@ const ConsultationsDetails = () => {
 
   const check = async () => {
     await axios
-      .post("http://138.68.161.4:8222/emr/cis/api/v1/generate_secure_token", {
+      .post("//138.68.161.4:8222/emr/cis/api/v1/generate_secure_token", {
         payload: "b9-828990-24=Kwame Kwaku=2024-02-04 09:37:10",
 
         secretKey: "SsUn6lCGA1Fo1VtQnLclp2GRHDlyMJcI",
