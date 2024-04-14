@@ -67,7 +67,7 @@ const ConsultationsDetails = () => {
         pulse: response.data.pulse,
         heartrate: response.data.heart_rate,
         notes: "All is well",
-        diagnose: "Malaria",
+        diagnose: diagnostics,
         medication: "Para",
         lab: "Do Malaria test",
       });
