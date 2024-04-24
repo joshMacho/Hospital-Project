@@ -114,7 +114,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
         toast.success(response.data.message, {
           position: "top-right",
         });
-        //savePatientRecord();
+        savePatientRecord();
         setLoading(false);
         isClosed();
       })
