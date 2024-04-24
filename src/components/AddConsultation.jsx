@@ -97,20 +97,24 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
       weight: "",
       heart_rate: "",
       date: "",
+      visitId: "",
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const genid = generateRandomId(10);
     setLoading(true);
     await axios
-      .post(`${API_BASE_URL}/addConsultations`, consultation)
+      .post(`${API_BASE_URL}/addConsultations`, {
+        ...consultation,
+        visitId: genid,
+      })
       .then((response) => {
         toast.success(response.data.message, {
           position: "top-right",
         });
-        resetFields();
-        savePatientRecord();
+        //savePatientRecord();
         setLoading(false);
         isClosed();
       })
@@ -120,10 +124,10 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
       });
   };
 
-  const savePatientRecord = () => {
-    axios
+  const savePatientRecord = async () => {
+    await axios
       .post("http://138.68.161.4:8222/emr/cis/api/v1/record_visit_info", {
-        visitId: generateRandomId(10),
+        visitId: consultation.visitId,
 
         hospitalId: "B9-828990-24",
 
