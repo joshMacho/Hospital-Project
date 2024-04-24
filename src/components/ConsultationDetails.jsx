@@ -64,23 +64,22 @@ const ConsultationsDetails = () => {
   };
 
   const check = async () => {
-    // await axios
-    //   .post("http://138.68.161.4:8222/emr/cis/api/v1/generate_secure_token", {
-    //     payload: `b9-828990-24=${
-    //       patientConsult.doctor_assigned
-    //     }=${getTimestamp()}`,
+    await axios
+      .post("http://138.68.161.4:8222/emr/cis/api/v1/generate_secure_token", {
+        payload: `b9-828990-24=${
+          patientConsult.doctor_assigned
+        }=${getTimestamp()}`,
 
-    //     secretKey: "SsUn6lCGA1Fo1VtQnLclp2GRHDlyMJcI",
+        secretKey: "SsUn6lCGA1Fo1VtQnLclp2GRHDlyMJcI",
 
-    //     hospitalId: "B9-828990-24",
-    //   })
-    //   .then((res) => {
-    //     if (res.data.errorCode === "0") {
-    //       setToken(res.data.errorMessage);
-    //     }
-    //   })
-    //   .catch((e) => console.log(e));
-    console.log(patientConsult);
+        hospitalId: "B9-828990-24",
+      })
+      .then((res) => {
+        if (res.data.errorCode === "0") {
+          setToken(res.data.errorMessage);
+        }
+      })
+      .catch((e) => console.log(e));
   };
 
   useEffect(() => {
