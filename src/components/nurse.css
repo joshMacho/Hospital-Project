@@ -44,8 +44,7 @@
     flex-col
     justify-between
     items-end
-    bg-slate-600
-    h-20;
+    bg-slate-600;
   }
   .t-b-div {
     @apply flex

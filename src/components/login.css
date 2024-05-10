@@ -30,6 +30,7 @@
 @layer base {
   .login-main-div {
     @apply flex
+    flex-col
     justify-center
     items-center
     h-[100vh]
@@ -134,6 +135,13 @@
     hover:shadow-md
     hover:scale-105;
   }
+  .h-lab {
+    @apply mx-2
+    w-full
+    flex
+    justify-center
+    items-center;
+  }
   .s-tit {
     @apply mx-2
     w-full
@@ -141,7 +149,8 @@
     justify-center
     items-center;
   }
-  .s-tit p {
+  .s-tit p,
+  .h-lab p {
     @apply bg-transparent
     px-2
     rounded-lg

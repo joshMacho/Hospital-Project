@@ -11,6 +11,7 @@ import { API_BASE_URL } from "./apibase";
 import { useAuth } from "../UseAuth";
 import adminIcon from "../assets/images/admin.png";
 import Logs from "./Logs";
+import Hos from "./Hos";
 
 // Lazy-load Dashboard component
 const Dashboard = React.lazy(() => import("./Dashboard"));
@@ -66,12 +67,17 @@ function AdminPage() {
   return (
     <div className="admin-main-div">
       <div className="top-bar-div">
-        <div className="who-div">
-          <div className="user-div">
-            <img src={adminIcon} />
-          </div>
-          <div className="c-div">
-            <Logout getUser={getUser()} logout={() => logoutUser()} />
+        <div className="all-around">
+          <div className="ontop">
+            <Hos />
+            <div className="who-div">
+              <div className="user-div">
+                <img src={adminIcon} />
+              </div>
+              <div className="c-div">
+                <Logout getUser={getUser()} logout={() => logoutUser()} />
+              </div>
+            </div>
           </div>
         </div>
         <div className="nav-buttons-div">

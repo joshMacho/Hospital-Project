@@ -5,6 +5,7 @@ import "./nurse.css";
 import { useNavigate } from "react-router";
 import Logout from "./Logout";
 import nurseIcon from "../assets/images/nurse.png";
+import Hos from "./Hos";
 
 // Lazy-load Consultations component
 const Consultations = React.lazy(() => import("./Consultations"));
@@ -54,12 +55,17 @@ function Nurse() {
   return (
     <div className="n-main-div">
       <div className="n-top-div">
-        <div className="who-div">
-          <div className="user-div">
-            <img src={nurseIcon} />
-          </div>
-          <div className="home-div">
-            <Logout getUser={getUser()} logout={() => logoutUser()} />
+        <div className="all-around">
+          <div className="ontop">
+            <Hos />
+            <div className="who-div">
+              <div className="user-div">
+                <img src={nurseIcon} />
+              </div>
+              <div className="home-div">
+                <Logout getUser={getUser()} logout={() => logoutUser()} />
+              </div>
+            </div>
           </div>
         </div>
         <div className="t-b-div">

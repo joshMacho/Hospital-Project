@@ -124,7 +124,9 @@ function Login() {
           />
         </Suspense>
       </ReactModal>
-
+      <div className="h-lab">
+        <p>Hospital 2</p>
+      </div>
       <div className="f-div div-props ">
         <div className="s-tit">
           <p>M-H-S</p>

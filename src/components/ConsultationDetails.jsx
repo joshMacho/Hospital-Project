@@ -10,6 +10,7 @@ import Logout from "./Logout";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "./Loading";
+import Hos from "./Hos";
 
 const ConsultationsDetails = () => {
   const {
@@ -194,12 +195,17 @@ const ConsultationsDetails = () => {
   return (
     <div className="admin-main-div">
       <div className="top-bar-div mb-5">
-        <div className="who-div">
-          <div className="user-div mb-3">
-            <img src={docIcon} />
-          </div>
-          <div className="c-div mb-3">
-            <Logout getUser={getUser()} logout={() => logoutUser()} />
+        <div className="all-around">
+          <div className="ontop">
+            <Hos />
+            <div className="who-div">
+              <div className="user-div mb-3">
+                <img src={docIcon} />
+              </div>
+              <div className="c-div mb-3">
+                <Logout getUser={getUser()} logout={() => logoutUser()} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import docIcon from "../../assets/images/doctor1.jpg";
 import Table from "./Table";
 import Logout from "../Logout";
 import { useNavigate } from "react-router-dom";
+import Hos from "../Hos";
 
 const Consultations = () => {
   const navigateTo = useNavigate();
@@ -33,12 +34,17 @@ const Consultations = () => {
   return (
     <div className="admin-main-div">
       <div className="top-bar-div mb-5">
-        <div className="who-div">
-          <div className="user-div mb-3">
-            <img src={docIcon} />
-          </div>
-          <div className="c-div mb-3">
-            <Logout getUser={getUser()} logout={() => logoutUser()} />
+        <div className="all-around">
+          <div className="ontop">
+            <Hos />
+            <div className="who-div">
+              <div className="user-div mb-3">
+                <img src={docIcon} />
+              </div>
+              <div className="c-div mb-3">
+                <Logout getUser={getUser()} logout={() => logoutUser()} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -35,7 +35,7 @@
         bg-slate-100;
   }
   .top-bar-div {
-    @apply w-full
+    @apply w-full   
     bg-slate-500
     flex
     flex-col
@@ -43,6 +43,7 @@
   }
   .c-div {
     @apply flex
+    flex-col
     justify-end
     items-center
     mt-2
@@ -88,10 +89,21 @@
     @apply flex
     w-full;
   }
+  .all-around {
+    @apply flex
+    justify-end;
+  }
+  .ontop {
+    @apply flex
+    flex-col
+    justify-center
+    items-center;
+  }
   .who-div {
     @apply flex
     justify-end
-    items-center;
+    items-center
+  w-fit;
   }
   .user-div {
     @apply flex
