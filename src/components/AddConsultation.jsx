@@ -29,6 +29,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
     weight: "",
     heart_rate: "",
     date: "",
+    visitId: "",
   });
   const [patientInfo, setPatientInfo] = useState([]);
   const [doctorsInfo, setDoctorsInfo] = useState([]);
@@ -97,7 +98,6 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
       weight: "",
       heart_rate: "",
       date: "",
-      visitId: "",
     });
   };
 
@@ -114,7 +114,7 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
         toast.success(response.data.message, {
           position: "top-right",
         });
-        savePatientRecord();
+        savePatientRecord(genid);
         setLoading(false);
         isClosed();
       })
@@ -124,10 +124,10 @@ function AddConsultation({ isOpen, isClosed, data, editMode, doneEditing }) {
       });
   };
 
-  const savePatientRecord = async () => {
+  const savePatientRecord = async (id) => {
     await axios
       .post("http://138.68.161.4:8222/emr/cis/api/v1/record_visit_info", {
-        visitId: consultation.visitId,
+        visitId: id,
 
         hospitalId: "B9-828990-24",
 
