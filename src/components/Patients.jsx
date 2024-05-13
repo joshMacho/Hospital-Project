@@ -1,6 +1,8 @@
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState, Suspense, useRef } from "react";
 import searchIcon from "../assets/icons/search.svg";
 import deleteIcon from "../assets/icons/delete.svg";
+import upArrow from "../assets/icons/broken-up.svg";
+import downArrow from "../assets/icons/broken-down.svg";
 import "./patient.css";
 import ReactModal from "react-modal";
 import axios from "axios";
@@ -22,17 +24,21 @@ function Patients() {
   const [editmode, setEditmode] = useState(false);
   const [modalData, setModalData] = useState(null);
   const { reload, setReload } = useGlobal();
+  const [currentpat, setCurrentpat] = useState(null);
+  const dropdownRef = useRef(null);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
-  // useEffect(() => {
-  //   if (reload) {
-  //     fetchData();
-  //   }
-  //   setReload(false);
-  // }, [reload]);
+  const handleOutsideClick = (e) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      setCurrentpat(null);
+    }
+  };
 
   const fetchData = async () => {
     await axios
@@ -98,6 +104,11 @@ function Patients() {
       .catch((e) => console.log(e));
   };
 
+  const showOptions = (e, id) => {
+    e.stopPropagation();
+    currentpat === id ? setCurrentpat(null) : setCurrentpat(id);
+  };
+
   return (
     <div className="w-full flex flex-col">
       <ReactModal
@@ -126,7 +137,7 @@ function Patients() {
         <div>
           <button
             onClick={openFormPopup}
-            className="flex justify-center items-center border border-black bg-slate-500 rounded-md hover:shadow-md hover:shadow-slate-500 hover:text-white"
+            className="flex justify-center items-center border border-black bg-slate-500 rounded-md hover:shadow-md hover:shadow-slate-500 text-white"
           >
             <p className="px-2 py-1">Add Patient</p>
           </button>
@@ -158,7 +169,10 @@ function Patients() {
             </thead>
             <tbody>
               {patientData.map((data, index) => (
-                <tr key={index}>
+                <tr
+                  key={index}
+                  className={`${currentpat === data.id ? "selectedPat" : ""}`}
+                >
                   <td>{data.name}</td>
                   <td>{data.email}</td>
                   <td>{data.contact}</td>
@@ -167,14 +181,35 @@ function Patients() {
                   <td>{data.address}</td>
                   <td>{data.marital_status}</td>
                   <td>{data.next_of_kin}</td>
-                  <td>
+                  <td className="relative">
                     <div className="actions">
-                      <button onClick={() => openModalWithData(data)}>
+                      {/* <button onClick={() => openModalWithData(data)}>
                         <img src={editIcon} className="actimg" alt="Edit" />
                       </button>
                       <button onClick={(e) => deletePat(e, data)}>
                         <img src={deleteIcon} className="actimg" alt="delete" />
-                      </button>
+                      </button> */}
+                      <img
+                        src={currentpat === data.id ? downArrow : upArrow}
+                        alt="action"
+                        onClick={(e) => showOptions(e, data.id)}
+                      />
+                      {currentpat === data.id && (
+                        <div className="dropdown-div" ref={dropdownRef}>
+                          <div
+                            className="drop-item"
+                            onClick={() => openModalWithData(data)}
+                          >
+                            <p>Update Patient</p>
+                          </div>
+                          <div
+                            className="drop-item"
+                            onClick={(e) => deletePat(e, data)}
+                          >
+                            <p>Delete Patient</p>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </td>
                 </tr>

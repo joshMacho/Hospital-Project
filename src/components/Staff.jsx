@@ -1,15 +1,14 @@
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState, Suspense, useRef } from "react";
 import "./staff.css";
 import addIcon from "../assets/icons/plus.svg";
 import ReactModal from "react-modal";
-import editIcon from "../assets/icons/edit.svg";
-import deleteIcon from "../assets/icons/delete.svg";
-import passwordIcon from "../assets/icons/key.svg";
 import { useGlobal } from "../GlobalContext";
 import axios from "axios";
 import { API_BASE_URL } from "./apibase";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import upArrow from "../assets/icons/broken-up.svg";
+import downArrow from "../assets/icons/broken-down.svg";
 
 ReactModal.setAppElement("#root");
 
@@ -27,6 +26,21 @@ function Staff() {
   const { sreload, setsReload } = useGlobal();
   const [editData, setEditData] = useState({});
   const [editM, setEditM] = useState(false);
+  const [currentemp, setCurrentemp] = useState(null);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  const handleOutsideClick = (e) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      setCurrentemp(null);
+    }
+  };
 
   const openFormPopup = () => {
     setIsFormOpen(true);
@@ -91,6 +105,11 @@ function Staff() {
         table_action: "Employees",
       })
       .catch((e) => console.log(e));
+  };
+
+  const showOptions = (e, id) => {
+    e.stopPropagation();
+    currentemp === id ? setCurrentemp(null) : setCurrentemp(id);
   };
 
   return (
@@ -161,7 +180,10 @@ function Staff() {
               </thead>
               <tbody>
                 {empData.map((data) => (
-                  <tr key={data.id}>
+                  <tr
+                    key={data.id}
+                    className={`${currentemp === data.id ? "selectedEmp" : ""}`}
+                  >
                     <td>{data.name}</td>
                     <td>{data.type}</td>
                     <td className="hidden lg:table-cell">{data.username}</td>
@@ -170,9 +192,36 @@ function Staff() {
                     <td className="hidden lg:table-cell">
                       {new Date(data.dateOf).toISOString().split("T")[0]}
                     </td>
-                    <td className=" flex justify-center items-center">
+                    <td className=" flex justify-center items-center relative">
                       <div className="actions">
-                        <button onClick={() => openUpdatePassword(data)}>
+                        <img
+                          src={currentemp === data.id ? downArrow : upArrow}
+                          alt="actions"
+                          onClick={(e) => showOptions(e, data.id)}
+                        />
+                        {currentemp === data.id && (
+                          <div className="dropdown-div" ref={dropdownRef}>
+                            <div
+                              className="drop-item"
+                              onClick={() => openUpdatePassword(data)}
+                            >
+                              <p>Update Password</p>
+                            </div>
+                            <div
+                              className="drop-item"
+                              onClick={() => openFormEdit(data)}
+                            >
+                              <p>Update Employee</p>
+                            </div>
+                            <div
+                              className="drop-item"
+                              onClick={(e) => deleteEmp(e, data)}
+                            >
+                              <p>Delete Employee</p>
+                            </div>
+                          </div>
+                        )}
+                        {/* <button onClick={() => openUpdatePassword(data)}>
                           <img
                             src={passwordIcon}
                             alt="Password"
@@ -184,7 +233,7 @@ function Staff() {
                         </button>
                         <button onClick={(e) => deleteEmp(e, data)}>
                           <img src={deleteIcon} alt="Edit" className="actimg" />
-                        </button>
+                        </button> */}
                       </div>
                     </td>
                   </tr>

@@ -149,4 +149,40 @@
   .actimg {
     @apply w-[15px] h-[15px];
   }
+  .dropdown-div {
+    @apply absolute
+      flex flex-col
+      bg-white
+      mt-1
+      right-2
+      shadow-lg
+      w-[200px]
+      top-5
+      rounded-md
+      hover:cursor-pointer
+      border
+      border-black;
+    z-index: 9999;
+  }
+  .drop-item {
+    @apply w-full
+    flex
+    justify-between
+    items-center
+    rounded-md
+    h-[40px]
+    hover:bg-gray-100
+    hover:border-t-2
+    hover:border-t-slate-600;
+  }
+  .drop-item p {
+    @apply font-ekuzoaMedium ml-3;
+  }
+  .drop-item div {
+    @apply mr-2;
+  }
+  .selectedEmp {
+    @apply shadow-sm
+    shadow-slate-400;
+  }
 }

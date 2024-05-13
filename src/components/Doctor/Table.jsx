@@ -48,17 +48,6 @@ const Table = (props) => {
     console.log(curr.id);
   }, []);
 
-  // const dataFromData = [
-  //   {
-  //     id: 3,
-  //     name: "Meyare Name",
-  //     doctor: "Dr. Apia",
-  //     consultationroom: "Consultation Rooxm 1",
-  //     status: "Pending",
-  //     date: "2024/21/04 12:34:00 AM",
-  //   },
-  // ];
-
   const [dataFromData, setDataFromData] = useState([]);
   const [dataToUseForTableM, setDataToUseForTableM] = useState([]);
 
