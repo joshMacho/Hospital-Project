@@ -1,12 +1,10 @@
 import React, { useEffect, useState, Suspense, useRef } from "react";
 import searchIcon from "../assets/icons/search.svg";
-import deleteIcon from "../assets/icons/delete.svg";
 import upArrow from "../assets/icons/broken-up.svg";
 import downArrow from "../assets/icons/broken-down.svg";
 import "./patient.css";
 import ReactModal from "react-modal";
 import axios from "axios";
-import editIcon from "../assets/icons/edit.svg";
 import { API_BASE_URL } from "./apibase";
 import { useGlobal } from "../GlobalContext";
 import { toast } from "react-toastify";
@@ -183,12 +181,6 @@ function Patients() {
                   <td>{data.next_of_kin}</td>
                   <td className="relative">
                     <div className="actions">
-                      {/* <button onClick={() => openModalWithData(data)}>
-                        <img src={editIcon} className="actimg" alt="Edit" />
-                      </button>
-                      <button onClick={(e) => deletePat(e, data)}>
-                        <img src={deleteIcon} className="actimg" alt="delete" />
-                      </button> */}
                       <img
                         src={currentpat === data.id ? downArrow : upArrow}
                         alt="action"

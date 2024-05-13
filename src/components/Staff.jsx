@@ -221,19 +221,6 @@ function Staff() {
                             </div>
                           </div>
                         )}
-                        {/* <button onClick={() => openUpdatePassword(data)}>
-                          <img
-                            src={passwordIcon}
-                            alt="Password"
-                            className="actimg"
-                          />
-                        </button>
-                        <button onClick={() => openFormEdit(data)}>
-                          <img src={editIcon} alt="Edit" className="actimg" />
-                        </button>
-                        <button onClick={(e) => deleteEmp(e, data)}>
-                          <img src={deleteIcon} alt="Edit" className="actimg" />
-                        </button> */}
                       </div>
                     </td>
                   </tr>
